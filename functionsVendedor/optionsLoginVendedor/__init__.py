@@ -66,17 +66,27 @@ def cadastrarProdutos(vendedores: dict, loginDoUsuario):
     for i in range(0, quantProdutos):
         produto = []
         nomeProd = input('\nDIGITE O NOME DO PRODUTO: ').upper()
+        codProd = input('DIGITE O CÓDIGO DO PRODUTO: ')
         precoProd = input('DIGITE O VALOR DO PRODUTO: ')
+        quantProd = input('DIGITE A QUANTIDADE EM ESTOQUE DO PRODUTO: ')
+        descProd = input('DESCRIÇÃO DO PRODUTO: ').capitalize()
+
 
         while True:
             if not precoProd.isnumeric():
                 print('APENAS VALORES NUMÉRICOS SÃO PERMITIDOS NO PREÇO!')
                 precoProd = input('DIGITE O VALOR DO PRODUTO NOVAMENTE: ')
+            elif not quantProd.isnumeric():
+                print('APENAS VALORES NUMÉRICOS SÃO PERMITIDOS NO PREÇO!')
+                quantProd = input('DIGITE A QUANTIDADE DO PRODUTO EM ESTOQUE NOVAMENTE: ')
             else:
                 break
 
         produto.append(nomeProd)
+        produto.append(codProd)
         produto.append(float(precoProd))
+        produto.append(int(quantProd))
+        produto.append(descProd)
         produtos.append(produto)
         print('\nPRODUTO(s) CADASTRADO(s).')
         continue
@@ -89,7 +99,10 @@ def buscarProduto(vendedores, loginDoUsuario):
     for produtoBuscado in vendedores[loginDoUsuario][6]:
         if produtoBuscado[0].find(buscarProduto) >= 0:
             print(f'\nNOME DO PRODUTO: {produtoBuscado[0].capitalize()}')
-            print(f'VALOR DO PRODUTO: R$ {produtoBuscado[1]:.2f}')
+            print(f'\nCÓDIGO DO PRODUTO: {produtoBuscado[1]}')
+            print(f'VALOR DO PRODUTO: R$ {produtoBuscado[2]:.2f}')
+            print(f'\nQUANTIDADE DO PRODUTO EM ESTOQUE: {produtoBuscado[3]}')
+            print(f'\nDESCRIÇÃO DO PRODUTO: {produtoBuscado[4]}')
             busca = True
 
     if not busca:
@@ -111,18 +124,30 @@ def atualizarProduto(vendedores, loginDoUsuario, functionMenu):
                     print(f'\nPRODUTO ACHADO: {produtoBuscado[0]}\n')
                     novoNomeProduto = input('DIGITE O NOVO NOME DO PRODUTO: ').upper()
                     produtoBuscado[0] = novoNomeProduto
-                    print('PRODUTO ATUALIZADO COM SUCESSO!')
+                    print('NOME ATUALIZADO COM SUCESSO!')
                     break
             else:
                 print('PRODUTO NÃO ENCONTRADO.')
                 continue
 
-        elif optionAtualizarProduto == '2':
-            atualizarProdutoValor = input(
-                '\nDIGITE O NOME DO PRODUTO QUE DESEJA ATUALIZAR O VALOR: ').upper()
+        if optionAtualizarProduto == '2':
+            atualizarProdutoCod = input('\nDIGITE O NOME DO PRODUTO QUE DESEJA ATUALIZAR O CÓDIGO: ').upper()
+            for produtoBuscado in vendedores[loginDoUsuario][6]:
+                if produtoBuscado[0].find(atualizarProdutoCod) >= 0:
+                    print(f'\nPRODUTO ACHADO: {produtoBuscado[1]}\n')
+                    novoCodProduto = input('DIGITE O NOVO NOME DO PRODUTO: ').upper()
+                    produtoBuscado[1] = novoCodProduto
+                    print('CÓDIGO ATUALIZADO COM SUCESSO!')
+                    break
+            else:
+                print('PRODUTO NÃO ENCONTRADO.')
+                continue
+
+        elif optionAtualizarProduto == '3':
+            atualizarProdutoValor = input('\nDIGITE O NOME DO PRODUTO QUE DESEJA ATUALIZAR O VALOR: ').upper()
             for produtoBuscado in vendedores[loginDoUsuario][6]:
                 if produtoBuscado[0].find(atualizarProdutoValor) >= 0:
-                    print(f'\nVALOR ACHADO: R$ {produtoBuscado[1]:.2f}\n')
+                    print(f'\nVALOR ACHADO: R$ {produtoBuscado[2]:.2f}\n')
                     novoValorProduto = input('DIGITE O NOVO PREÇO DO PRODUTO: ')
                     while True:
                         if not novoValorProduto.isnumeric():
@@ -130,7 +155,39 @@ def atualizarProduto(vendedores, loginDoUsuario, functionMenu):
                             novoValorProduto = input('DIGITE O VALOR DO PRODUTO NOVAMENTE: ')
                         else:
                             break
-                    produtoBuscado[1] = float(novoValorProduto)
+                    produtoBuscado[2] = float(novoValorProduto)
+                    print('VALOR ATUALIZADO COM SUCESSO.')
+                    break
+
+        elif optionAtualizarProduto == '4':
+            atualizarProdutoValor = input('\nDIGITE O NOME DO PRODUTO QUE DESEJA ATUALIZAR O VALOR: ').upper()
+            for produtoBuscado in vendedores[loginDoUsuario][6]:
+                if produtoBuscado[0].find(atualizarProdutoValor) >= 0:
+                    print(f'\nVALOR ACHADO: R$ {produtoBuscado[2]:.2f}\n')
+                    novoValorProduto = input('DIGITE O NOVO PREÇO DO PRODUTO: ')
+                    while True:
+                        if not novoValorProduto.isnumeric():
+                            print('APENAS VALORES NUMÉRICOS SÃO PERMITIDOS NO PREÇO!')
+                            novoValorProduto = input('DIGITE O VALOR DO PRODUTO NOVAMENTE: ')
+                        else:
+                            break
+                    produtoBuscado[2] = float(novoValorProduto)
+                    print('VALOR ATUALIZADO COM SUCESSO.')
+                    break
+
+        elif optionAtualizarProduto == '5':
+            atualizarProdutoValor = input('\nDIGITE O NOME DO PRODUTO QUE DESEJA ATUALIZAR O VALOR: ').upper()
+            for produtoBuscado in vendedores[loginDoUsuario][6]:
+                if produtoBuscado[0].find(atualizarProdutoValor) >= 0:
+                    print(f'\nVALOR ACHADO: R$ {produtoBuscado[2]:.2f}\n')
+                    novoValorProduto = input('DIGITE O NOVO PREÇO DO PRODUTO: ')
+                    while True:
+                        if not novoValorProduto.isnumeric():
+                            print('APENAS VALORES NUMÉRICOS SÃO PERMITIDOS NO PREÇO!')
+                            novoValorProduto = input('DIGITE O VALOR DO PRODUTO NOVAMENTE: ')
+                        else:
+                            break
+                    produtoBuscado[2] = float(novoValorProduto)
                     print('VALOR ATUALIZADO COM SUCESSO.')
                     break
 

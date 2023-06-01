@@ -24,7 +24,10 @@ def menuLoginVendedor():
 def menuAtualizarProduto():
     print('\n------OPÇÕES------')
     print('1 - ATUALIZAR NOME')
-    print('2 - ATUALIZAR O PREÇO')
+    print('2 - ATUALIZAR O CÓDIGO')
+    print('3 - ATUALIZAR O PREÇO')
+    print('4 - ATUALIZAR O ESTOQUE')
+    print('5 - ATUALIZAR A DESCRIÇÃO')
     print('0 - VOLTAR PARA A PÁGINA INICIAL')
     optionAtualizarProduto = input('\nDIGITE A OPÇÃO DESEJADA: ')
     return optionAtualizarProduto
