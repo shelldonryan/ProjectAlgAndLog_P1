@@ -100,7 +100,7 @@ def buscarProduto(vendedores, loginDoUsuario):
         if produtoBuscado[0].find(buscarProduto) >= 0:
             print(f'\nNOME DO PRODUTO: {produtoBuscado[0].capitalize()}')
             print(f'\nCÓDIGO DO PRODUTO: {produtoBuscado[1]}')
-            print(f'VALOR DO PRODUTO: R$ {produtoBuscado[2]:.2f}')
+            print(f'\nVALOR DO PRODUTO: R$ {produtoBuscado[2]:.2f}')
             print(f'\nQUANTIDADE DO PRODUTO EM ESTOQUE: {produtoBuscado[3]}')
             print(f'\nDESCRIÇÃO DO PRODUTO: {produtoBuscado[4]}')
             busca = True
@@ -121,33 +121,35 @@ def atualizarProduto(vendedores, loginDoUsuario, functionMenu):
             atualizarProdutoNome = input('\nDIGITE O NOME DO PRODUTO QUE DESEJA ATUALIZAR: ').upper()
             for produtoBuscado in vendedores[loginDoUsuario][6]:
                 if produtoBuscado[0].find(atualizarProdutoNome) >= 0:
-                    print(f'\nPRODUTO ACHADO: {produtoBuscado[0]}\n')
+                    print(f'\nPRODUTO ACHADO: {produtoBuscado[1]}\n')
                     novoNomeProduto = input('DIGITE O NOVO NOME DO PRODUTO: ').upper()
                     produtoBuscado[0] = novoNomeProduto
                     print('NOME ATUALIZADO COM SUCESSO!')
                     break
-            else:
-                print('PRODUTO NÃO ENCONTRADO.')
-                continue
+                else:
+                    print('PRODUTO NÃO ENCONTRADO.')
+                    continue
+            break
 
-        if optionAtualizarProduto == '2':
+        elif optionAtualizarProduto == '2':
             atualizarProdutoCod = input('\nDIGITE O NOME DO PRODUTO QUE DESEJA ATUALIZAR O CÓDIGO: ').upper()
             for produtoBuscado in vendedores[loginDoUsuario][6]:
                 if produtoBuscado[0].find(atualizarProdutoCod) >= 0:
                     print(f'\nPRODUTO ACHADO: {produtoBuscado[1]}\n')
-                    novoCodProduto = input('DIGITE O NOVO NOME DO PRODUTO: ').upper()
+                    novoCodProduto = input('DIGITE O NOVO CÓDIGO DO PRODUTO: ').upper()
                     produtoBuscado[1] = novoCodProduto
                     print('CÓDIGO ATUALIZADO COM SUCESSO!')
                     break
-            else:
-                print('PRODUTO NÃO ENCONTRADO.')
-                continue
+                else:
+                    print('PRODUTO NÃO ENCONTRADO.')
+                    continue
+            break
 
         elif optionAtualizarProduto == '3':
             atualizarProdutoValor = input('\nDIGITE O NOME DO PRODUTO QUE DESEJA ATUALIZAR O VALOR: ').upper()
             for produtoBuscado in vendedores[loginDoUsuario][6]:
                 if produtoBuscado[0].find(atualizarProdutoValor) >= 0:
-                    print(f'\nVALOR ACHADO: R$ {produtoBuscado[2]:.2f}\n')
+                    print(f'\nVALOR ACHADO: R$ {produtoBuscado[1]:.2f}\n')
                     novoValorProduto = input('DIGITE O NOVO PREÇO DO PRODUTO: ')
                     while True:
                         if not novoValorProduto.isnumeric():
@@ -158,42 +160,44 @@ def atualizarProduto(vendedores, loginDoUsuario, functionMenu):
                     produtoBuscado[2] = float(novoValorProduto)
                     print('VALOR ATUALIZADO COM SUCESSO.')
                     break
+                else:
+                    print('PRODUTO NÃO ENCONTRADO.')
+                    continue
+            break
 
         elif optionAtualizarProduto == '4':
-            atualizarProdutoValor = input('\nDIGITE O NOME DO PRODUTO QUE DESEJA ATUALIZAR O VALOR: ').upper()
+            atualizarProdutoQuant = input('\nDIGITE O NOME DO PRODUTO QUE DESEJA ATUALIZAR O VALOR: ').upper()
             for produtoBuscado in vendedores[loginDoUsuario][6]:
-                if produtoBuscado[0].find(atualizarProdutoValor) >= 0:
-                    print(f'\nVALOR ACHADO: R$ {produtoBuscado[2]:.2f}\n')
-                    novoValorProduto = input('DIGITE O NOVO PREÇO DO PRODUTO: ')
+                if produtoBuscado[0].find(atualizarProdutoQuant) >= 0:
+                    print(f'\nVALOR ACHADO: R$ {produtoBuscado[1]:.2f}\n')
+                    novoQuantProduto = input('DIGITE A QUANTIDADE EM ESTOQUE DO PRODUTO: ')
                     while True:
-                        if not novoValorProduto.isnumeric():
+                        if not novoQuantProduto.isnumeric():
                             print('APENAS VALORES NUMÉRICOS SÃO PERMITIDOS NO PREÇO!')
-                            novoValorProduto = input('DIGITE O VALOR DO PRODUTO NOVAMENTE: ')
+                            novoQuantProduto = input('DIGITE A QUANTIDADE EM ESTOQUE DO PRODUTO NOVAMENTE: ')
                         else:
                             break
-                    produtoBuscado[2] = float(novoValorProduto)
-                    print('VALOR ATUALIZADO COM SUCESSO.')
+                    produtoBuscado[3] = float(novoQuantProduto)
+                    print('ESTOQUE ATUALIZADO COM SUCESSO.')
                     break
+                else:
+                    print('PRODUTO NÃO ENCONTRADO.')
+                    continue
+            break
 
         elif optionAtualizarProduto == '5':
-            atualizarProdutoValor = input('\nDIGITE O NOME DO PRODUTO QUE DESEJA ATUALIZAR O VALOR: ').upper()
+            atualizarProdutoDesc = input('\nDIGITE O NOME DO PRODUTO QUE DESEJA ATUALIZAR: ').upper()
             for produtoBuscado in vendedores[loginDoUsuario][6]:
-                if produtoBuscado[0].find(atualizarProdutoValor) >= 0:
-                    print(f'\nVALOR ACHADO: R$ {produtoBuscado[2]:.2f}\n')
-                    novoValorProduto = input('DIGITE O NOVO PREÇO DO PRODUTO: ')
-                    while True:
-                        if not novoValorProduto.isnumeric():
-                            print('APENAS VALORES NUMÉRICOS SÃO PERMITIDOS NO PREÇO!')
-                            novoValorProduto = input('DIGITE O VALOR DO PRODUTO NOVAMENTE: ')
-                        else:
-                            break
-                    produtoBuscado[2] = float(novoValorProduto)
-                    print('VALOR ATUALIZADO COM SUCESSO.')
+                if produtoBuscado[0].find(atualizarProdutoDesc) >= 0:
+                    print(f'\nPRODUTO ACHADO: {produtoBuscado[1]}\n')
+                    novoDescProduto = input('DIGITE A NOVA DESCRIÇÃO DO PRODUTO: ').upper()
+                    produtoBuscado[4] = novoDescProduto
+                    print('DESCRIÇÃO ATUALIZADA COM SUCESSO!')
                     break
-
-            else:
-                print('\nPRODUTO NÃO ENCONTRADO.')
-                continue
+                else:
+                    print('PRODUTO NÃO ENCONTRADO.')
+                    continue
+            break
 
         elif optionAtualizarProduto == '0':
             break
