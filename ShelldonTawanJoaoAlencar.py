@@ -1,12 +1,14 @@
-from functionsCode import menus, verificarExistencia, validarDado, optionsLogin
+import functionsMenu
+from functionsMenu import menuVendedor
+from functionsVendedor import optionsLogin, validarDado, verificarExistencia
 
 vendedores = {}
 
 option = -1
 
-menus.mensagemInicial()
+menuVendedor.mensagemInicial()
 while option != 0:
-    option = menus.menuInicial()
+    option = menuVendedor.menuInicialVendedor()
 
     if not option.isdigit():
         print('\nSÓ NÚMEROS NAS OPÇÕES')
@@ -105,7 +107,7 @@ while option != 0:
 
         while login:
 
-            optionLogin = menus.menuLogin()
+            optionLogin = menuVendedor.menuLogin()
 
             if not optionLogin.isdigit():
                 print('DIGITE APENAS NÚMEROS.')
@@ -126,7 +128,7 @@ while option != 0:
                 optionsLogin.buscarProduto(vendedores, chaveParaLogin)
 
             elif optionLogin == '4':
-                optionsLogin.atualizarProduto(vendedores, chaveParaLogin, menus.menuAtualizarProduto())
+                optionsLogin.atualizarProduto(vendedores, chaveParaLogin, menuVendedor.menuAtualizarProduto())
 
             elif optionLogin == '5':
                 optionsLogin.removerProduto(vendedores, chaveParaLogin)
