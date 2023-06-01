@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 # create the dataset
 
 data = {'Mesa': 20, 'cadeira': 15, 'Corda': 30, 'Cortina': 35}

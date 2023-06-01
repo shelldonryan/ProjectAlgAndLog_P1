@@ -15,8 +15,8 @@ def menuLoginVendedor():
     print('3 - BUSCAR PRODUTO')
     print('4 - ATUALIZAR PRODUTO')
     print('5 - REMOVER PRODUTO')
-    print('6 - SAIR DA CONTA')
-    print('7 - REMOVER CONTA\n')
+    print('0 - SAIR DA CONTA')
+    print('6 - REMOVER CONTA\n')
     optionLoginVendedor = input('DIGITE A OPÇÃO QUE DESEJA REALIZAR: ')
     return optionLoginVendedor
 

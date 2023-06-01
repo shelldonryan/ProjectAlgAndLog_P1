@@ -1,5 +1,6 @@
+import openai
 def consultarchatgpt(produto):
-    openai.api_key = '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'
+    openai.api_key = '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'
 
     # Set the model and prompt
     model_engine = "text-davinci-003"
