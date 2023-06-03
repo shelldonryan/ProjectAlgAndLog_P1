@@ -20,6 +20,15 @@ def validarCnpj(cnpj):
             break
     return cnpj
 
+def validarCpf(cpf):
+    while True:
+        if not cpf.isdigit() or len(cpf) != 11:
+            print('Cpf INVÁLIDO! DEVE TER 11 CARACTERES.')
+            cpf = input('\nDIGITE NOVAMENTE SEU CNPJ: ')
+        else:
+            break
+    return cpf
+
 def validarTelefone(telefone):
     while True:
         if not telefone.isdigit() or len(telefone) != 11:

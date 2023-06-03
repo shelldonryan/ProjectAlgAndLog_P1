@@ -8,6 +8,7 @@ import validarDado
 
 vendedores = {}
 clientes = {}
+produtosNoSistema = []
 
 optionInicial = -1
 while optionInicial != 0:
@@ -41,75 +42,88 @@ while optionInicial != 0:
 
                 nomeDoVendedor = validarDado.validarNome(nomeDoVendedor)
 
-                cnpj = input('\nINFORME SEU CNPJ: ').strip()
+                cnpjVendedor = input('\nINFORME SEU CNPJ: ').strip()
 
-                cnpjExiste = verificarExistencia.cnpjExiste(cnpj, vendedores)
+                cnpjExiste = verificarExistencia.cnpjExiste(cnpjVendedor, vendedores)
 
                 if cnpjExiste:
                     print('\nESSE CNPJ JÁ FOI USADO ANTERIORMENTE.')
                     continue
 
-                cnpj = validarDado.validarCnpj(cnpj)
+                cnpjVendedor = validarDado.validarCnpj(cnpjVendedor)
 
-                telefone = input('\nINFORME SEU NÚMERO DE TELEFONE COM DDD: ')
+                cpfVendedor = input('\nINFORME SEU CPF: ').strip()
 
-                telefoneExiste = verificarExistencia.telefoneExiste(telefone, vendedores)
+                cpfExiste = verificarExistencia.cpfExisteVendedor(cpfVendedor, vendedores)
+
+                if cpfExiste:
+                    print('\nESSE CNPJ JÁ FOI USADO ANTERIORMENTE.')
+                    continue
+
+                cpfVendedor = validarDado.validarCpf(cpfVendedor)
+
+                telefoneVendedor = input('\nINFORME SEU NÚMERO DE TELEFONE COM DDD: ')
+
+                telefoneExiste = verificarExistencia.telefoneExiste(telefoneVendedor, vendedores)
 
                 if telefoneExiste:
                     print('\nESSE NÚMERO DE TELEFONE JÁ FOI USADO ANTERIORMENTE.')
                     continue
 
-                telefone = validarDado.validarTelefone(telefone)
+                telefoneVendedor = validarDado.validarTelefone(telefoneVendedor)
 
-                nomeUsuario = input('\nCRIE SEU NOME DE USUÁRIO: ').strip()
+                nomeUsuarioVendedor = input('\nCRIE SEU NOME DE USUÁRIO: ').strip()
 
-                loginExiste = verificarExistencia.loginExiste(nomeUsuario, vendedores)
+                loginExiste = verificarExistencia.loginExiste(nomeUsuarioVendedor, vendedores)
 
                 if loginExiste:
                     print('\nESSE NOME DE USUÁRIO JÁ FOI USADO EM UM CADASTRO ANTERIOR.')
                     continue
 
-                nomeUsuario = validarDado.validarUsuario(nomeUsuario)
+                nomeUsuarioVendedor = validarDado.validarUsuario(nomeUsuarioVendedor)
 
                 print('\nEX: renegadelha@gmail.com')
-                emailDoUsuario = input('CADASTRE O SEU EMAIL: ').strip()
+                emailDoVendedor = input('CADASTRE O SEU EMAIL: ').strip()
 
-                emailExiste = verificarExistencia.emailExiste(emailDoUsuario, vendedores)
+                emailExiste = verificarExistencia.emailExiste(emailDoVendedor, vendedores)
 
                 if emailExiste:
                     print('ESSE EMAIL JÁ ESTÁ SENDO USADO.')
                     continue
 
-                emailDoUsuario = validarDado.validarEmail(emailDoUsuario)
+                emailDoVendedor = validarDado.validarEmail(emailDoVendedor)
 
-                senhaDeUsuario = input('\nCADASTRE SUA SENHA: ').strip()
+                senhaDeUsuarioVendedor = input('\nCADASTRE SUA SENHA: ').strip()
 
-                senhaExiste = verificarExistencia.senhaExiste(senhaDeUsuario, vendedores)
+                senhaExiste = verificarExistencia.senhaExiste(senhaDeUsuarioVendedor, vendedores)
 
                 if senhaExiste:
                     print('\nESSA SENHA JÁ EXISTE.')
                     continue
 
-                senhaDeUsuario = validarDado.validarSenha(senhaDeUsuario)
+                senhaDeUsuarioVendedor = validarDado.validarSenha(senhaDeUsuarioVendedor)
 
-                vendedores[cnpj] = [nomeDoVendedor, cnpj, telefone, nomeUsuario, emailDoUsuario, senhaDeUsuario, '']
+                vendedores[cnpjVendedor] = [nomeDoVendedor, cnpjVendedor, cpfVendedor, telefoneVendedor,
+                                            nomeUsuarioVendedor, emailDoVendedor, senhaDeUsuarioVendedor, '']
                 print('\nVENDEDOR CADASTRADO COM SUCESSO!')
 
             elif optionVendedor == '2':
                 print('\n|-----ÁREA DE LOGIN-----|\n')
                 login = False
-                chaveParaLogin = ''
+                chaveParaLogin = input('DIGITE SEU CNPJ: ').strip()
+
                 while not login:
                     if len(vendedores) == 0:
-                        print('NENHUM VENDEDOR AINDA FOI CADASTRADO!')
+                        print('NENHUM USUÁRIO AINDA FOI CADASTRADO!')
                         break
 
-                    loginDoVendedor = optionsLoginVendedor.usuarioAreaLogin(vendedores)
-                    chaveParaLogin = loginDoVendedor
+                    if vendedores[chaveParaLogin][1] != chaveParaLogin:
+                        print('\nLOGIN INVÁLIDO!')
+                        break
 
-                    senhaDoUsuarioVendedor = input('SENHA: ').strip()
-
-                    login = optionsLoginVendedor.senhaAreaLogin(vendedores, senhaDoUsuarioVendedor)
+                    if vendedores[chaveParaLogin][1].find(chaveParaLogin) >= 0:
+                        senhaDoUsuario = input('SENHA: ').strip()
+                        login = optionsLoginVendedor.senhaAreaLoginVendedor(vendedores, senhaDoUsuario, chaveParaLogin)
                 else:
                     print('LOGIN EFETUADO.\n')
 
@@ -133,19 +147,20 @@ while optionInicial != 0:
                         optionsLoginVendedor.atualizarSenha(vendedores, chaveParaLogin)
 
                     elif optionLoginVendedor == '2':
-                        optionsLoginVendedor.cadastrarProdutos(vendedores, chaveParaLogin)
+                        optionsLoginVendedor.cadastrarProdutos(vendedores, chaveParaLogin, produtosNoSistema)
 
                     elif optionLoginVendedor == '3':
                         optionsLoginVendedor.buscarProduto(vendedores, chaveParaLogin)
 
                     elif optionLoginVendedor == '4':
-                        optionsLoginVendedor.atualizarProduto(vendedores, chaveParaLogin, menuVendedor.menuAtualizarProduto())
+                        optionsLoginVendedor.atualizarProduto(vendedores, chaveParaLogin,
+                                                              menuVendedor.menuAtualizarProduto())
 
                     elif optionLoginVendedor == '5':
                         optionsLoginVendedor.removerProduto(vendedores, chaveParaLogin)
 
                     elif optionLoginVendedor == '6':
-                        optionsLoginVendedor.removerConta(vendedores)
+                        login = optionsLoginVendedor.removerConta(vendedores, chaveParaLogin)
 
             else:
                 print('OPÇÃO INVÁLIDA, DIGITE NOVAMENTE.')
@@ -177,15 +192,15 @@ while optionInicial != 0:
 
                 nomeDoCliente = validarDado.validarNome(nomeDoCliente)
 
-                cnpjCliente = input('\nINFORME SEU CNPJ: ').strip()
+                cpfCliente = input('\nINFORME SEU CPF: ').strip()
 
-                cnpjExiste = verificarExistencia.cnpjExiste(cnpjCliente, clientes)
+                cpfExiste = verificarExistencia.cpfExisteCliente(cpfCliente, clientes)
 
-                if cnpjExiste:
+                if cpfExiste:
                     print('\nESSE CNPJ JÁ FOI USADO ANTERIORMENTE.')
                     continue
 
-                cnpjCliente = validarDado.validarCnpj(cnpjCliente)
+                cpfCliente = validarDado.validarCpf(cpfCliente)
 
                 telefoneCliente = input('\nINFORME SEU NÚMERO DE TELEFONE COM DDD: ')
 
@@ -210,7 +225,7 @@ while optionInicial != 0:
                 print('\nEX: renegadelha@gmail.com')
                 emailDoCliente = input('CADASTRE O SEU EMAIL: ').strip()
 
-                emailExiste = verificarExistencia.emailExiste(emailDoCliente, vendedores)
+                emailExiste = verificarExistencia.emailExiste(emailDoCliente, clientes)
 
                 if emailExiste:
                     print('ESSE EMAIL JÁ ESTÁ SENDO USADO.')
@@ -220,7 +235,7 @@ while optionInicial != 0:
 
                 senhaDeUsuarioCliente = input('\nCADASTRE SUA SENHA: ').strip()
 
-                senhaExiste = verificarExistencia.senhaExiste(senhaDeUsuarioCliente, vendedores)
+                senhaExiste = verificarExistencia.senhaExiste(senhaDeUsuarioCliente, clientes)
 
                 if senhaExiste:
                     print('\nESSA SENHA JÁ EXISTE.')
@@ -228,26 +243,27 @@ while optionInicial != 0:
 
                 senhaDeUsuarioCliente = validarDado.validarSenha(senhaDeUsuarioCliente)
 
-                clientes[cnpjCliente] = [nomeDoCliente, cnpjCliente, telefoneCliente, nomeUsuarioCliente, emailDoCliente,
-                                  senhaDeUsuarioCliente, '']
+                clientes[cpfCliente] = [nomeDoCliente, cpfCliente, telefoneCliente, nomeUsuarioCliente, emailDoCliente,
+                                        senhaDeUsuarioCliente]
                 print('\nVENDEDOR CADASTRADO COM SUCESSO!')
-                print(clientes)
 
             if optionCliente == '2':
                 print('\n|-----ÁREA DE LOGIN-----|\n')
                 login = False
-                chaveParaLogin = ''
+                chaveParaLogin = input('DIGITE SEU CPF: ').strip()
+
                 while not login:
                     if len(clientes) == 0:
                         print('NENHUM CLIENTE AINDA FOI CADASTRADO!')
                         break
 
-                    loginDoCliente = optionsLoginCliente.usuarioAreaLogin(clientes)
-                    chaveParaLogin = loginDoCliente
+                    if clientes[chaveParaLogin][1] != chaveParaLogin:
+                        print('\nLOGIN INVÁLIDO!')
+                        break
 
-                    senhaDoUsuarioCliente = input('SENHA: ').strip()
-
-                    login = optionsLoginCliente.senhaAreaLogin(clientes, senhaDoUsuarioCliente)
+                    if clientes[chaveParaLogin][1].find(chaveParaLogin) >= 0:
+                        senhaDoUsuario = input('SENHA: ').strip()
+                        login = optionsLoginCliente.senhaAreaLoginCliente(clientes, senhaDoUsuario, chaveParaLogin)
                 else:
                     print('LOGIN EFETUADO.\n')
 
@@ -269,8 +285,11 @@ while optionInicial != 0:
                     elif optionLoginCliente == '1':
                         optionsLoginCliente.atualizarSenha(clientes, chaveParaLogin)
 
+                    elif optionLoginCliente == '2':
+                        optionsLoginCliente.buscarProduto(produtosNoSistema, menuCliente.menuBuscarProduto())
+
                     elif optionLoginCliente == '6':
-                        optionsLoginCliente.removerConta(clientes)
+                        login = optionsLoginCliente.removerConta(clientes, chaveParaLogin)
 
     elif optionInicial == '0':
         print('\nPROGRAMA ENCERRADO')

@@ -1,30 +1,18 @@
-def senhaAreaLogin(vendedores: dict, senha):
-    for cnpj in vendedores:
-        while True:
-            if senha != vendedores[cnpj][5]:
-                print('\nSENHA INVÁLIDA!')
-                senha = input('DIGITE A SUA SENHA NOVAMENTE: ').strip()
-            else:
-                login = True
-                break
-        return login
-
-def usuarioAreaLogin (vendedores: dict):
-    loginDoUsuario = input('ENTRE COM SEU CNPJ: ').strip()
-    for cnpj in vendedores:
-        while True:
-            if loginDoUsuario != vendedores[cnpj][1]:
-                print('\nLOGIN INVÁLIDO!')
-                loginDoUsuario = input('DIGITE O CNPJ NOVAMENTE: ').strip()
-            else:
-                break
-        return loginDoUsuario
+def senhaAreaLoginVendedor(dicionario: dict, senha, chaveparalogin):
+    while True:
+        if senha != dicionario[chaveparalogin][6]:
+            print('\nSENHA INVÁLIDA!')
+            senha = input('DIGITE A SUA SENHA NOVAMENTE: ').strip()
+        else:
+            login = True
+            break
+    return login
 
 def atualizarSenha(vendedores: dict, loginDoUsuario):
     confirmarSenha = input('SENHA ATUAL: ').strip()
 
     while True:
-        if confirmarSenha != vendedores[loginDoUsuario][5]:
+        if confirmarSenha != vendedores[loginDoUsuario][6]:
             print('\nSENHA INVÁLIDA!')
             confirmarSenha = input('DIGITE SUA SENHA ATUAL NOVAMENTE: ')
         else:
@@ -46,7 +34,7 @@ def atualizarSenha(vendedores: dict, loginDoUsuario):
             print('DIGITE Y - SIM OU N - NÃO')
             pergSeguranca = input('\nDESEJA REALMENTE ALTERAR A SENHA? ').upper()
             if pergSeguranca == 'Y':
-                vendedores[loginDoUsuario][5] = novaSenha
+                vendedores[loginDoUsuario][6] = novaSenha
                 print('\nSENHA ALTERADA COM SUCESSO!')
                 break
 
@@ -59,11 +47,11 @@ def atualizarSenha(vendedores: dict, loginDoUsuario):
                 print('DIGITE A SUA NOVA SENHA NOVAMENTE.')
                 continue
 
-def cadastrarProdutos(vendedores: dict, loginDoUsuario):
+def cadastrarProdutos(vendedores: dict, loginDoUsuario, lista: list):
     produtos = []
     quantProdutos = int(input('\nDIGITE QUANTOS PRODUTOS DESEJA CADASTRAR: '))
 
-    for i in range(0, quantProdutos):
+    for i in range(0, quantProdutos,):
         produto = []
         nomeProd = input('\nDIGITE O NOME DO PRODUTO: ').upper()
         codProd = input('DIGITE O CÓDIGO DO PRODUTO: ')
@@ -87,16 +75,19 @@ def cadastrarProdutos(vendedores: dict, loginDoUsuario):
         produto.append(float(precoProd))
         produto.append(int(quantProd))
         produto.append(descProd)
+        produto.append(loginDoUsuario)
         produtos.append(produto)
+
         print('\nPRODUTO(s) CADASTRADO(s).')
         continue
-    vendedores[loginDoUsuario][6] = produtos
+    vendedores[loginDoUsuario][7] = produtos
+    lista.append(produtos)
 
 def buscarProduto(vendedores, loginDoUsuario):
     buscarProduto = input('DIGITE O NOME DO PRODUTO QUE DESEJA BUSCAR: ').upper()
     busca = False
 
-    for produtoBuscado in vendedores[loginDoUsuario][6]:
+    for produtoBuscado in vendedores[loginDoUsuario][7]:
         if produtoBuscado[0].find(buscarProduto) >= 0:
             print(f'\nNOME DO PRODUTO: {produtoBuscado[0].capitalize()}')
             print(f'\nCÓDIGO DO PRODUTO: {produtoBuscado[1]}')
@@ -119,7 +110,7 @@ def atualizarProduto(vendedores, loginDoUsuario, functionMenu):
 
         if optionAtualizarProduto == '1':
             atualizarProdutoNome = input('\nDIGITE O NOME DO PRODUTO QUE DESEJA ATUALIZAR: ').upper()
-            for produtoBuscado in vendedores[loginDoUsuario][6]:
+            for produtoBuscado in vendedores[loginDoUsuario][7]:
                 if produtoBuscado[0].find(atualizarProdutoNome) >= 0:
                     print(f'\nPRODUTO ACHADO: {produtoBuscado[1]}\n')
                     novoNomeProduto = input('DIGITE O NOVO NOME DO PRODUTO: ').upper()
@@ -133,7 +124,7 @@ def atualizarProduto(vendedores, loginDoUsuario, functionMenu):
 
         elif optionAtualizarProduto == '2':
             atualizarProdutoCod = input('\nDIGITE O NOME DO PRODUTO QUE DESEJA ATUALIZAR O CÓDIGO: ').upper()
-            for produtoBuscado in vendedores[loginDoUsuario][6]:
+            for produtoBuscado in vendedores[loginDoUsuario][7]:
                 if produtoBuscado[0].find(atualizarProdutoCod) >= 0:
                     print(f'\nPRODUTO ACHADO: {produtoBuscado[1]}\n')
                     novoCodProduto = input('DIGITE O NOVO CÓDIGO DO PRODUTO: ').upper()
@@ -147,7 +138,7 @@ def atualizarProduto(vendedores, loginDoUsuario, functionMenu):
 
         elif optionAtualizarProduto == '3':
             atualizarProdutoValor = input('\nDIGITE O NOME DO PRODUTO QUE DESEJA ATUALIZAR O VALOR: ').upper()
-            for produtoBuscado in vendedores[loginDoUsuario][6]:
+            for produtoBuscado in vendedores[loginDoUsuario][7]:
                 if produtoBuscado[0].find(atualizarProdutoValor) >= 0:
                     print(f'\nVALOR ACHADO: R$ {produtoBuscado[1]:.2f}\n')
                     novoValorProduto = input('DIGITE O NOVO PREÇO DO PRODUTO: ')
@@ -167,7 +158,7 @@ def atualizarProduto(vendedores, loginDoUsuario, functionMenu):
 
         elif optionAtualizarProduto == '4':
             atualizarProdutoQuant = input('\nDIGITE O NOME DO PRODUTO QUE DESEJA ATUALIZAR O VALOR: ').upper()
-            for produtoBuscado in vendedores[loginDoUsuario][6]:
+            for produtoBuscado in vendedores[loginDoUsuario][7]:
                 if produtoBuscado[0].find(atualizarProdutoQuant) >= 0:
                     print(f'\nVALOR ACHADO: R$ {produtoBuscado[1]:.2f}\n')
                     novoQuantProduto = input('DIGITE A QUANTIDADE EM ESTOQUE DO PRODUTO: ')
@@ -187,7 +178,7 @@ def atualizarProduto(vendedores, loginDoUsuario, functionMenu):
 
         elif optionAtualizarProduto == '5':
             atualizarProdutoDesc = input('\nDIGITE O NOME DO PRODUTO QUE DESEJA ATUALIZAR: ').upper()
-            for produtoBuscado in vendedores[loginDoUsuario][6]:
+            for produtoBuscado in vendedores[loginDoUsuario][7]:
                 if produtoBuscado[0].find(atualizarProdutoDesc) >= 0:
                     print(f'\nPRODUTO ACHADO: {produtoBuscado[1]}\n')
                     novoDescProduto = input('DIGITE A NOVA DESCRIÇÃO DO PRODUTO: ').upper()
@@ -207,7 +198,7 @@ def removerProduto(vendedores, loginDoUsuario):
     remocaoProduto = input('DIGITE O NOME DO PRODUTO QUE DESEJA REMOVER: ').upper()
     removidos = []
 
-    for produtoBuscado in vendedores[loginDoUsuario][6]:
+    for produtoBuscado in vendedores[loginDoUsuario][7]:
         if produtoBuscado[0].find(remocaoProduto) >= 0:
             removidos.append(produtoBuscado)
 
@@ -219,41 +210,38 @@ def removerProduto(vendedores, loginDoUsuario):
         print('\nPRODUTO NÃO ENCONTRADO!')
 
 
-def removerConta(vendedores):
-    remocaoConta = input('DIGITE O CNPJ DA SUA CONTA PARA REMOVER: ').strip()
-    for cnpj in vendedores:
-        while True:
-            if remocaoConta != vendedores[cnpj][1]:
-                print('\nESSE CNPJ NÃO FOI ENCONTRADO')
-                remocaoConta = input('DIGITE O CNPJ NOVAMENTE: ').strip()
-            else:
-                break
+def removerConta(vendedores, chaveParaLogin):
+    chaveParaRemover = input('DIGITE O CNPJ DA SUA CONTA PARA REMOVER: ').strip()
+    while True:
+        if chaveParaRemover != vendedores[chaveParaLogin][1]:
+            print('\nESSE CNPJ NÃO FOI ENCONTRADO')
+            chaveParaRemover = input('DIGITE O CNPJ NOVAMENTE: ').strip()
+        else:
+            break
     verification = False
 
     while not verification:
         print('\nPRECISAMOS VERIFICAR SE É VOCÊ MESMO!')
         senhaDoUsuario = input('DIGITE SUA SENHA: ').strip()
-        for cnpj in vendedores:
-            if senhaDoUsuario != vendedores[cnpj][5]:
-                print('\nSENHA INVÁLIDA!')
-                print('\nTENTE NOVAMENTE.')
-                continue
+        if senhaDoUsuario != vendedores[chaveParaLogin][6]:
+            print('\nSENHA INVÁLIDA!')
+            print('\nTENTE NOVAMENTE.')
+            continue
+        else:
+            print('\nDIGITE Y - SIM OU N - NÃO')
+            pergSeguranca = input('\nDESEJA REALMENTE EXCLUIR SUA CONTA? ').upper()
+            if pergSeguranca == 'Y':
+                vendedores.pop(chaveParaRemover)
+                print('\nCONTA EXCLUÍDA.')
+                return False
+                break
+
+            elif pergSeguranca == 'N':
+                print('\nREMOÇÃO CANCELADA.')
+                return True
+                break
+
             else:
-                print('\nDIGITE Y - SIM OU N - NÃO')
-                pergSeguranca = input('\nDESEJA REALMENTE EXCLUIR SUA CONTA? ').upper()
-                if pergSeguranca == 'Y':
-                    vendedores.pop(remocaoConta)
-                    print('\nCONTA EXCLUÍDA.')
-                    verification = True
-                    login = False
-                    break
-
-                elif pergSeguranca == 'N':
-                    print('\nREMOÇÃO CANCELADA.')
-                    verification = True
-                    break
-
-                else:
-                    print("\nÉ NECESSÁRIO DIGITAR 'Y' OU 'N'.\n")
-                    print('TENTE NOVAMENTE.')
-                    continue
+                print("\nÉ NECESSÁRIO DIGITAR 'Y' OU 'N'.\n")
+                print('TENTE NOVAMENTE.')
+                continue
