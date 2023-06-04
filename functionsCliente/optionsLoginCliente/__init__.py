@@ -102,6 +102,20 @@ def buscarProduto(lista: list, menu, chaveParaLogin):
             busca = True
             return busca
 
+def listaDeCompras(lista: dict, chaveParaLogin):
+    if len(lista[chaveParaLogin][6]) == 0:
+        print('VOCÊ NÃO REALIZOU NENHUMA COMPRA!')
+
+
+    for compras in lista[chaveParaLogin][6]:
+            print('-=-' * 20)
+            print(f'NOME DO PRODUTO: {compras[0].capitalize()}')
+            print(f'\nCÓDIGO DO PRODUTO: {compras[1]}')
+            print(f'\nVALOR DO PRODUTO: R$ {compras[2]:.2f}')
+            print(f'\nQUANTIDADE DO PRODUTO EM ESTOQUE: {compras[3]}')
+            print(f'\nDESCRIÇÃO DO PRODUTO: {compras[4]}')
+            print('-=-' * 20)
+
 
 def removerConta(clientes: dict, chaveParaLogin):
     chaveParaRemover = input('DIGITE O CPF DA SUA CONTA PARA REMOVER: ').strip()
