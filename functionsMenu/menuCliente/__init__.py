@@ -18,9 +18,9 @@ def menuLoginCliente():
     return optionLoginCliente
 
 def menuBuscarProduto():
-    print('\nCOMO DESEJA REALIZAR A PESQUISA1?\n')
+    print('\nCOMO DESEJA REALIZAR A PESQUISA?\n')
     print('1 - BUSCAR PRODUTO PELO NOME')
     print('2 - BUSCAR PRODUTO PELA DESCRIÇÃO')
     print('0 - VOLTAR PÁGINA')
-    option = input('\n DIGITE A OPÇÃO DESEJADA: ')
+    option = input('\nDIGITE A OPÇÃO DESEJADA: ')
     return option

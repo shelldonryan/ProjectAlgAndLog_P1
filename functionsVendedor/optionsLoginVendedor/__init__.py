@@ -49,9 +49,16 @@ def atualizarSenha(vendedores: dict, loginDoUsuario):
 
 def cadastrarProdutos(vendedores: dict, loginDoUsuario, lista: list):
     produtos = []
-    quantProdutos = int(input('\nDIGITE QUANTOS PRODUTOS DESEJA CADASTRAR: '))
+    while True:
+        quantProdutos = input('\nDIGITE QUANTOS PRODUTOS DESEJA CADASTRAR: ')
 
-    for i in range(0, quantProdutos,):
+        if not quantProdutos.isdigit():
+            print('SÓ NÚMEROS NAS OPÇÕES.')
+            continue
+        else:
+            break
+
+    for i in range(0, int(quantProdutos)):
         produto = []
         nomeProd = input('\nDIGITE O NOME DO PRODUTO: ').upper()
         codProd = input('DIGITE O CÓDIGO DO PRODUTO: ')
@@ -75,7 +82,7 @@ def cadastrarProdutos(vendedores: dict, loginDoUsuario, lista: list):
         produto.append(float(precoProd))
         produto.append(int(quantProd))
         produto.append(descProd)
-        produto.append(loginDoUsuario)
+        produto.append(vendedores[loginDoUsuario][2])
         produtos.append(produto)
 
         print('\nPRODUTO(s) CADASTRADO(s).')
@@ -106,7 +113,7 @@ def atualizarProduto(vendedores, loginDoUsuario, functionMenu):
 
         if not optionAtualizarProduto.isdigit():
             print('SÓ NÚMEROS NAS OPÇÕES.')
-            continue
+            break
 
         if optionAtualizarProduto == '1':
             atualizarProdutoNome = input('\nDIGITE O NOME DO PRODUTO QUE DESEJA ATUALIZAR: ').upper()
@@ -191,7 +198,8 @@ def atualizarProduto(vendedores, loginDoUsuario, functionMenu):
             break
 
         elif optionAtualizarProduto == '0':
-            break
+            atualizar = True
+            return atualizar
 
 
 def removerProduto(vendedores, loginDoUsuario):

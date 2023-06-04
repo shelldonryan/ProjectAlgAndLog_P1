@@ -6,9 +6,10 @@ from functionsCliente import optionsLoginCliente
 import verificarExistencia
 import validarDado
 
-vendedores = {}
-clientes = {}
-produtosNoSistema = []
+vendedores = {'12345678901234': ['Shelldon Ryan', '12345678901234', '12345678912', '83981955736', 'shelldon', 'shelldon@gmail.com', 'Ryan2018@', ''],
+              '12345678901233': ['Tawan de Sousa', '12345678901233', '32112332112', '83981955735', 'eutawan', 'tawan@gmail.com', 'Tawan2020@', '']}
+clientes = {'12345678912': ['Shelldon Ryan', '12345678912', '83981955736', 'shelldon', 'shelldon@gmail.com', 'Ryan2018@']}
+produtosNoSistema = [[['BICICLETA', '2223', 235.0, 5, 'Aro 29, mountain bike, 30 marchas', '12345678912']], [['BICICLETA', '2224', 240.0, 6, 'Aro 26, bike de passeio, 24 marchas', '32112332112']]]
 
 optionInicial = -1
 while optionInicial != 0:
@@ -148,13 +149,17 @@ while optionInicial != 0:
 
                     elif optionLoginVendedor == '2':
                         optionsLoginVendedor.cadastrarProdutos(vendedores, chaveParaLogin, produtosNoSistema)
+                        print(produtosNoSistema)
 
                     elif optionLoginVendedor == '3':
                         optionsLoginVendedor.buscarProduto(vendedores, chaveParaLogin)
 
+
                     elif optionLoginVendedor == '4':
-                        optionsLoginVendedor.atualizarProduto(vendedores, chaveParaLogin,
-                                                              menuVendedor.menuAtualizarProduto())
+                        atualizar = False
+                        while not atualizar:
+                            atualizar = optionsLoginVendedor.atualizarProduto(vendedores, chaveParaLogin,
+                                                                  menuVendedor.menuAtualizarProduto())
 
                     elif optionLoginVendedor == '5':
                         optionsLoginVendedor.removerProduto(vendedores, chaveParaLogin)
@@ -268,7 +273,7 @@ while optionInicial != 0:
                     print('LOGIN EFETUADO.\n')
 
                 if len(clientes) != 0:
-                    print(f'OLÁ CLIENTE{clientes[chaveParaLogin][0]}, BEM-VINDO AO SERTÃO LIVRE')
+                    print(f'OLÁ CLIENTE {clientes[chaveParaLogin][0]}, BEM-VINDO AO SERTÃO LIVRE')
 
                 while login:
                     optionLoginCliente = menuCliente.menuLoginCliente()
@@ -286,7 +291,9 @@ while optionInicial != 0:
                         optionsLoginCliente.atualizarSenha(clientes, chaveParaLogin)
 
                     elif optionLoginCliente == '2':
-                        optionsLoginCliente.buscarProduto(produtosNoSistema, menuCliente.menuBuscarProduto())
+                        buscar = False
+                        while not buscar:
+                            buscar = optionsLoginCliente.buscarProduto(produtosNoSistema, menuCliente.menuBuscarProduto(), chaveParaLogin)
 
                     elif optionLoginCliente == '6':
                         login = optionsLoginCliente.removerConta(clientes, chaveParaLogin)
