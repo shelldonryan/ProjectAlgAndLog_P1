@@ -8,7 +8,7 @@ import validarDado
 
 vendedores = {'12345678901234': ['Shelldon Ryan', '12345678901234', '12345678912', '83981955736', 'shelldon', 'shelldon@gmail.com', 'Ryan2018@', ''],
               '12345678901233': ['Tawan de Sousa', '12345678901233', '32112332112', '83981955735', 'eutawan', 'tawan@gmail.com', 'Tawan2020@', '']}
-clientes = {'12345678912': ['Shelldon Ryan', '12345678912', '83981955736', 'shelldon', 'shelldon@gmail.com', 'Ryan2018@', [['BICICLETA', '2223', 235.0, 5, 'Aro 29, mountain bike, 30 marchas', '12345678912'], ['BICICLETA', '2224', 240.0, 6, 'Aro 26, bike de passeio, 24 marchas', '32112332112']]]}
+clientes = {'12345678912': ['Shelldon Ryan', '12345678912', '83981955736', 'shelldon', 'shelldon@gmail.com', 'Ryan2018@', [['BICICLETA', '2223', 235.0, 5, 'Aro 29, mountain bike, 30 marchas', '12345678912']]]}
 produtosNoSistema = [[['BICICLETA', '2223', 235.0, 5, 'Aro 29, mountain bike, 30 marchas', '12345678912']], [['BICICLETA', '2224', 240.0, 6, 'Aro 26, bike de passeio, 24 marchas', '32112332112']]]
 
 optionInicial = -1
@@ -301,7 +301,9 @@ while optionInicial != 0:
                         buscar = False
                         while not buscar:
                             buscar = optionsLoginCliente.buscarProduto(produtosNoSistema,
-                                                                       menuCliente.menuBuscarProduto(), chaveParaLogin)
+                                                                       clientes,
+                                                                       menuCliente.menuBuscarProduto(),
+                                                                       chaveParaLogin)
 
                     elif optionLoginCliente == '3':
                         optionsLoginCliente.listaDeCompras(clientes, chaveParaLogin)

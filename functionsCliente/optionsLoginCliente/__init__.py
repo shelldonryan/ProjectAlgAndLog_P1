@@ -49,9 +49,9 @@ def atualizarSenha(clientes: dict, loginDoUsuario):
                 print('DIGITE A SUA NOVA SENHA NOVAMENTE.')
                 continue
 
-def buscarProduto(lista: list, menu, chaveParaLogin):
+def buscarProduto(lista: list, lista2: list, menuBuscarProduto, chaveParaLogin):
     while True:
-        optionBuscarProduto = menu
+        optionBuscarProduto = menuBuscarProduto
 
         if not optionBuscarProduto.isdigit():
             print('SÓ NÚMEROS NAS OPÇÕES.')
@@ -72,13 +72,36 @@ def buscarProduto(lista: list, menu, chaveParaLogin):
                         print(f'\nINFORMARÇÕES DO PRODUTO: {produtoBuscado[4]}')
                         print('-=-' * 20)
                         buscado = True
-
             print(f'\nDESCRIÇÃO DO PRODUTO: {consultarchatgpt(buscarProduto)}')
 
             if not buscado:
                 print('\nPRODUTO NÃO ENCONTRADO.')
                 break
-            else:
+            if buscado:
+                print('\n---ÁREA DE COMPRA---')
+                codeProdutoComprar = input('\nDIGITE O CÓDIGO DO PRODUTO QUE DESEJA REALIZAR A COMPRA: ')
+                validar = True
+
+                for v in range(0, len(lista)):
+                    for cpf in lista[v]:
+                        if lista2[chaveParaLogin][1] == cpf[5]:
+                            print('VENDEDOR NÃO PODE COMPRAR O PRÓPRIO PRODUTO')
+                            validar = False
+
+                if validar:
+                    for v in range(0, (len(lista))):
+                        for produtoBuscado in lista[v]:
+                            produtoComprado = []
+                            if codeProdutoComprar == produtoBuscado[1]:
+                                produtoComprado.append(produtoBuscado[0].capitalize())
+                                produtoComprado.append(produtoBuscado[1])
+                                produtoComprado.append(produtoBuscado[2])
+                                produtoComprado.append(produtoBuscado[3])
+                                produtoComprado.append(produtoBuscado[4])
+                                lista2[chaveParaLogin][6].append(produtoComprado)
+                                produtoBuscado[3] -= 1
+                                print('\nPRODUTO COMPRADO COM SUCESSO')
+
                 break
 
 
