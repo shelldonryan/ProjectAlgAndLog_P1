@@ -11,7 +11,6 @@ def menuLoginCliente():
     print('1 - ATUALIZAR A SENHA DO LOGIN DO CLIENTE')
     print('2 - BUSCAR PRODUTO')
     print('3 - LISTA DE COMPRAS')
-    print('3 - CONSULTA DE DESCRIÇÃO')
     print('0 - SAIR DA CONTA')
     print('6 - REMOVER CONTA\n')
     optionLoginCliente = input('DIGITE A OPÇÃO QUE DESEJA REALIZAR: ')

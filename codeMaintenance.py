@@ -47,7 +47,7 @@ while optionInicial != 0:
 
                 cnpjExiste = verificarExistencia.cnpjExiste(cnpjVendedor, vendedores)
 
-                if cnpjExiste:
+                if not cnpjExiste:
                     print('\nESSE CNPJ JÁ FOI USADO ANTERIORMENTE.')
                     continue
 
@@ -113,13 +113,17 @@ while optionInicial != 0:
                 login = False
                 chaveParaLogin = input('DIGITE SEU CNPJ: ').strip()
 
+                chaveParaLogin = validarDado.validarCpf(chaveParaLogin)
+
+                cnpjExiste = verificarExistencia.cnpjExiste(chaveParaLogin, vendedores)
+
+                if cnpjExiste:
+                    print('\nESSE CNPJ NÃO EXISTE.')
+                    continue
+
                 while not login:
                     if len(vendedores) == 0:
                         print('NENHUM USUÁRIO AINDA FOI CADASTRADO!')
-                        break
-
-                    if vendedores[chaveParaLogin][1] != chaveParaLogin:
-                        print('\nLOGIN INVÁLIDO!')
                         break
 
                     if vendedores[chaveParaLogin][1].find(chaveParaLogin) >= 0:
@@ -153,7 +157,6 @@ while optionInicial != 0:
 
                     elif optionLoginVendedor == '3':
                         optionsLoginVendedor.buscarProduto(vendedores, chaveParaLogin)
-
 
                     elif optionLoginVendedor == '4':
                         atualizar = False
@@ -202,7 +205,7 @@ while optionInicial != 0:
                 cpfExiste = verificarExistencia.cpfExisteCliente(cpfCliente, clientes)
 
                 if cpfExiste:
-                    print('\nESSE CNPJ JÁ FOI USADO ANTERIORMENTE.')
+                    print('\nESSE CPF JÁ FOI USADO ANTERIORMENTE.')
                     continue
 
                 cpfCliente = validarDado.validarCpf(cpfCliente)
@@ -257,13 +260,17 @@ while optionInicial != 0:
                 login = False
                 chaveParaLogin = input('DIGITE SEU CPF: ').strip()
 
+                chaveParaLogin = validarDado.validarCpf(chaveParaLogin)
+
+                cpfExiste = verificarExistencia.cpfExisteCliente(chaveParaLogin, clientes)
+
+                if not cpfExiste:
+                    print('\nESSE CPF NÃO EXISTE.')
+                    continue
+
                 while not login:
                     if len(clientes) == 0:
                         print('NENHUM CLIENTE AINDA FOI CADASTRADO!')
-                        break
-
-                    if clientes[chaveParaLogin][1] != chaveParaLogin:
-                        print('\nLOGIN INVÁLIDO!')
                         break
 
                     if clientes[chaveParaLogin][1].find(chaveParaLogin) >= 0:
@@ -298,6 +305,7 @@ while optionInicial != 0:
 
                     elif optionLoginCliente == '3':
                         optionsLoginCliente.listaDeCompras(clientes, chaveParaLogin)
+
 
                     elif optionLoginCliente == '6':
                         login = optionsLoginCliente.removerConta(clientes, chaveParaLogin)

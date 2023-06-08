@@ -1,4 +1,5 @@
 from time import sleep
+from chatgpt.openai import consultarchatgpt
 def senhaAreaLoginCliente(dicionario: dict, senha, chaveparalogin):
     while True:
         if senha != dicionario[chaveparalogin][5]:
@@ -60,40 +61,50 @@ def buscarProduto(lista: list, menu, chaveParaLogin):
             buscarProduto = input('\nDIGITE O NOME DO PRODUTO QUE DESEJA BUSCAR: ').upper()
             buscado = False
 
-            for v in range(0, len(lista)):
-                for produtoBuscado in lista:
+            for v in range(0, (len(lista))):
+                for produtoBuscado in lista[v]:
                     if produtoBuscado[0].find(buscarProduto) >= 0:
                         print('-=-' * 20)
                         print(f'NOME DO PRODUTO: {produtoBuscado[0].capitalize()}')
                         print(f'\nCÓDIGO DO PRODUTO: {produtoBuscado[1]}')
                         print(f'\nVALOR DO PRODUTO: R$ {produtoBuscado[2]:.2f}')
                         print(f'\nQUANTIDADE DO PRODUTO EM ESTOQUE: {produtoBuscado[3]}')
-                        print(f'\nDESCRIÇÃO DO PRODUTO: {produtoBuscado[4]}')
+                        print(f'\nINFORMARÇÕES DO PRODUTO: {produtoBuscado[4]}')
                         print('-=-' * 20)
                         buscado = True
+
+            print(f'\nDESCRIÇÃO DO PRODUTO: {consultarchatgpt(buscarProduto)}')
 
             if not buscado:
                 print('\nPRODUTO NÃO ENCONTRADO.')
                 break
-            #else:
-
+            else:
+                break
 
 
         elif optionBuscarProduto == '2':
             buscarProduto = input('\nDIGITE A DESCRIÇÃO DO PRODUTO QUE DESEJA BUSCAR: ').capitalize()
+            buscado = False
+            nomeProdutoBuscado = []
 
             for v in range(0, len(lista)):
                 for produtoBuscado in lista[v]:
                     if produtoBuscado[4].find(buscarProduto) >= 0:
                         print('-=-' * 20)
+                        nomeProdutoBuscado.append(produtoBuscado[0])
                         print(f'NOME DO PRODUTO: {produtoBuscado[0].capitalize()}')
                         print(f'\nCÓDIGO DO PRODUTO: {produtoBuscado[1]}')
                         print(f'\nVALOR DO PRODUTO: R$ {produtoBuscado[2]:.2f}')
                         print(f'\nQUANTIDADE DO PRODUTO EM ESTOQUE: {produtoBuscado[3]}')
-                        print(f'\nDESCRIÇÃO DO PRODUTO: {produtoBuscado[4]}')
+                        print(f'\nINFORMAÇÕES DO PRODUTO: {produtoBuscado[4]}')
                         print('-=-' * 20)
-            else:
+                        buscado = True
+            print(f'\nDESCRIÇÃO DO PRODUTO: {consultarchatgpt(nomeProdutoBuscado[0])}')
+
+            if not buscado:
                 print('\nPRODUTO NÃO ENCONTRADO.')
+                break
+            else:
                 break
 
         elif optionBuscarProduto == '0':
@@ -106,16 +117,17 @@ def listaDeCompras(lista: dict, chaveParaLogin):
     if len(lista[chaveParaLogin][6]) == 0:
         print('VOCÊ NÃO REALIZOU NENHUMA COMPRA!')
 
-
+    nomeProdutoListado = []
     for compras in lista[chaveParaLogin][6]:
-            print('-=-' * 20)
-            print(f'NOME DO PRODUTO: {compras[0].capitalize()}')
-            print(f'\nCÓDIGO DO PRODUTO: {compras[1]}')
-            print(f'\nVALOR DO PRODUTO: R$ {compras[2]:.2f}')
-            print(f'\nQUANTIDADE DO PRODUTO EM ESTOQUE: {compras[3]}')
-            print(f'\nDESCRIÇÃO DO PRODUTO: {compras[4]}')
-            print('-=-' * 20)
-
+        print('-=-' * 20)
+        print(f'NOME DO PRODUTO: {compras[0].capitalize()}')
+        nomeProdutoListado.append(compras[0])
+        print(f'\nCÓDIGO DO PRODUTO: {compras[1]}')
+        print(f'\nVALOR DO PRODUTO: R$ {compras[2]:.2f}')
+        print(f'\nQUANTIDADE DO PRODUTO EM ESTOQUE: {compras[3]}')
+        print(f'\nINFORMAÇÕES DO PRODUTO: {compras[4]}')
+        print('-=-' * 20)
+        print(f'\nDESCRIÇÃO DO PRODUTO: {consultarchatgpt(nomeProdutoListado[0])}')
 
 def removerConta(clientes: dict, chaveParaLogin):
     chaveParaRemover = input('DIGITE O CPF DA SUA CONTA PARA REMOVER: ').strip()
