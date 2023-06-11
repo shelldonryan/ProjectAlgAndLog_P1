@@ -107,7 +107,6 @@ while optionInicial != 0:
                 vendedores[cnpjVendedor] = [nomeDoVendedor, cnpjVendedor, cpfVendedor, telefoneVendedor,
                                             nomeUsuarioVendedor, emailDoVendedor, senhaDeUsuarioVendedor, []]
                 produtosNoSistema.append([cpfVendedor])
-                print(produtosNoSistema)
                 print('\nVENDEDOR CADASTRADO COM SUCESSO!')
 
             elif optionVendedor == '2':
@@ -157,8 +156,6 @@ while optionInicial != 0:
 
                     elif optionLoginVendedor == '2':
                         optionsLoginVendedor.cadastrarProdutos(vendedores, chaveParaLogin, produtosNoSistema)
-                        print(produtosNoSistema)
-                        print(vendedores[chaveParaLogin][7])
 
                     elif optionLoginVendedor == '3':
                         optionsLoginVendedor.buscarProduto(vendedores, chaveParaLogin)
@@ -257,7 +254,7 @@ while optionInicial != 0:
                 senhaDeUsuarioCliente = validarDado.validarSenha(senhaDeUsuarioCliente)
 
                 clientes[cpfCliente] = [nomeDoCliente, cpfCliente, telefoneCliente, nomeUsuarioCliente, emailDoCliente,
-                                        senhaDeUsuarioCliente, '']
+                                        senhaDeUsuarioCliente, []]
                 print('\nVENDEDOR CADASTRADO COM SUCESSO!')
 
             if optionCliente == '2':
@@ -315,10 +312,8 @@ while optionInicial != 0:
                     elif optionLoginCliente == '3':
                         optionsLoginCliente.listaDeCompras(clientes, chaveParaLogin)
 
-
                     elif optionLoginCliente == '6':
                         login = optionsLoginCliente.removerConta(clientes, chaveParaLogin)
-                        print(clientes[chaveParaLogin][6])
 
     elif optionInicial == '0':
         print('\nPROGRAMA ENCERRADO')

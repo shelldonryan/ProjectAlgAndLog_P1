@@ -82,6 +82,7 @@ def buscarProduto(lista: list, lista2: list, menuBuscarProduto, chaveParaLogin):
                 if pergConfirmar == 'Y':
                     print('\n---ÁREA DE COMPRA---')
                     codeProdutoComprar = input('\nDIGITE O CÓDIGO DO PRODUTO QUE DESEJA REALIZAR A COMPRA: ')
+                    quantDaCompra = int(input('QUANTOS PRODUTOS DESEJA COMPRAR? '))
                     validar = True
 
                     for i in range(0, (len(lista))):
@@ -91,20 +92,35 @@ def buscarProduto(lista: list, lista2: list, menuBuscarProduto, chaveParaLogin):
                                     print('\nO VENDEDOR NÃO PODE COMPRAR O PRÓRPIO PRODUTO!')
                                     validar = False
 
+                    listaDeCompra = lista2[chaveParaLogin][6]
+                    verificationProduto = False
                     if validar:
+                        for produtoCliente in listaDeCompra:
+                            if codeProdutoComprar == produtoCliente[1]:
+                                verificationProduto = True
+
                         for v in range(0, (len(lista))):
                             for produtoBuscado in lista[v]:
                                 produtoComprado = []
                                 if codeProdutoComprar == produtoBuscado[1]:
-                                    produtoComprado.append(produtoBuscado[0].capitalize())
-                                    produtoComprado.append(produtoBuscado[1])
-                                    produtoComprado.append(produtoBuscado[2])
-                                    produtoComprado.append(produtoBuscado[4])
-                                    lista2[chaveParaLogin][6].append(produtoComprado)
-                                    print('\nPRODUTO COMPRADO COM SUCESSO')
+                                    if produtoBuscado[3] < quantDaCompra or produtoBuscado[3] == 0:
+                                        print('QUANTIDADE INSUFICIENTE EM ESTOQUE!')
+                                    elif verificationProduto:
+                                        for produtoCliente in listaDeCompra:
+                                            produtoCliente[3] += quantDaCompra
+                                            produtoBuscado[3] -= quantDaCompra
+                                            print(f'\nPRODUTO COMPRADO COM SUCESSO')
+                                    else:
+                                        produtoComprado.append(produtoBuscado[0].capitalize())
+                                        produtoComprado.append(produtoBuscado[1])
+                                        produtoComprado.append(produtoBuscado[2])
+                                        produtoComprado.append(quantDaCompra)
+                                        produtoComprado.append(produtoBuscado[4])
+                                        listaDeCompra.append(produtoComprado)
+                                        produtoBuscado[3] -= quantDaCompra
+                                        print('\nPRODUTO COMPRADO COM SUCESSO')
 
                 break
-
 
         elif optionBuscarProduto == '2':
             buscarProduto = input('\nDIGITE A DESCRIÇÃO DO PRODUTO QUE DESEJA BUSCAR: ').capitalize()
@@ -132,6 +148,7 @@ def buscarProduto(lista: list, lista2: list, menuBuscarProduto, chaveParaLogin):
                 if pergConfirmar == 'Y':
                     print('\n---ÁREA DE COMPRA---')
                     codeProdutoComprar = input('\nDIGITE O CÓDIGO DO PRODUTO QUE DESEJA REALIZAR A COMPRA: ')
+                    quantDaCompra = int(input('QUANTOS PRODUTOS DESEJA COMPRAR? '))
                     validar = True
 
                     for i in range(0, (len(lista))):
@@ -141,19 +158,37 @@ def buscarProduto(lista: list, lista2: list, menuBuscarProduto, chaveParaLogin):
                                     print('\nO VENDEDOR NÃO PODE COMPRAR O PRÓRPIO PRODUTO!')
                                     validar = False
 
+                    listaDeCompra = lista2[chaveParaLogin][6]
+                    verificationProduto = False
                     if validar:
+                        for i in range(len(listaDeCompra)):
+                            for produtoCliente in listaDeCompra[i]:
+                                if codeProdutoComprar == produtoCliente[1]:
+                                    verificationProduto = True
+
                         for v in range(0, (len(lista))):
                             for produtoBuscado in lista[v]:
                                 produtoComprado = []
                                 if codeProdutoComprar == produtoBuscado[1]:
-                                    produtoComprado.append(produtoBuscado[0].capitalize())
-                                    produtoComprado.append(produtoBuscado[1])
-                                    produtoComprado.append(produtoBuscado[2])
-                                    produtoComprado.append(produtoBuscado[4])
-                                    lista2[chaveParaLogin][6].append(produtoComprado)
-                                    print('\nPRODUTO COMPRADO COM SUCESSO')
+                                    if produtoBuscado[3] < quantDaCompra or produtoBuscado[3] == 0:
+                                        print('QUANTIDADE INSUFICIENTE EM ESTOQUE!')
+                                    elif verificationProduto:
+                                        for i in range(len(listaDeCompra)):
+                                            for produtoCliente in listaDeCompra[i]:
+                                                produtoCliente[3] += quantDaCompra
+                                                produtoBuscado -= quantDaCompra
+                                                print(f'\nPRODUTO COMPRADO COM SUCESSO')
+                                    else:
+                                        produtoComprado.append(produtoBuscado[0].capitalize())
+                                        produtoComprado.append(produtoBuscado[1])
+                                        produtoComprado.append(produtoBuscado[2])
+                                        produtoComprado.append(quantDaCompra)
+                                        produtoComprado.append(produtoBuscado[4])
+                                        listaDeCompra.append(produtoComprado)
+                                        produtoBuscado[3] -= quantDaCompra
+                                        print('\nPRODUTO COMPRADO COM SUCESSO')
 
-                break
+            break
 
         elif optionBuscarProduto == '0':
             print('\nVOLTANDO AO MENU PRINCIPAL...')
@@ -172,7 +207,8 @@ def listaDeCompras(lista: dict, chaveParaLogin):
         nomeProdutoListado.append(compras[0])
         print(f'\nCÓDIGO DO PRODUTO: {compras[1]}')
         print(f'\nVALOR DO PRODUTO: R$ {compras[2]:.2f}')
-        print(f'\nINFORMAÇÕES DO PRODUTO: {compras[3]}')
+        print(f'\nQUANTIDADE COMPRADA: {compras[3]} {str(compras[0]).capitalize()}')
+        print(f'\nINFORMAÇÕES DO PRODUTO: {compras[4]}')
         print('-=-' * 20)
         #print(f'\nDESCRIÇÃO DO PRODUTO: {consultarchatgpt(nomeProdutoListado[0])}')
 
