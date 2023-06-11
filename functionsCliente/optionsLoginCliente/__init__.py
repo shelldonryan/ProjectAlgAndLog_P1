@@ -1,5 +1,5 @@
 from time import sleep
-from chatgpt.openai import consultarchatgpt
+#from chatgpt.openai import consultarchatgpt
 def senhaAreaLoginCliente(dicionario: dict, senha, chaveparalogin):
     while True:
         if senha != dicionario[chaveparalogin][5]:
@@ -72,35 +72,36 @@ def buscarProduto(lista: list, lista2: list, menuBuscarProduto, chaveParaLogin):
                         print(f'\nINFORMARÇÕES DO PRODUTO: {produtoBuscado[4]}')
                         print('-=-' * 20)
                         buscado = True
-            print(f'\nDESCRIÇÃO DO PRODUTO: {consultarchatgpt(buscarProduto)}')
+            #print(f'\nDESCRIÇÃO DO PRODUTO: {consultarchatgpt(buscarProduto)}')
 
             if not buscado:
                 print('\nPRODUTO NÃO ENCONTRADO.')
                 break
             if buscado:
-                print('\n---ÁREA DE COMPRA---')
-                codeProdutoComprar = input('\nDIGITE O CÓDIGO DO PRODUTO QUE DESEJA REALIZAR A COMPRA: ')
-                validar = True
+                pergConfirmar = input('DESEJA COMPRAR ALGUM PRODUTO? (Y OR N) ->  ').upper()
+                if pergConfirmar == 'Y':
+                    print('\n---ÁREA DE COMPRA---')
+                    codeProdutoComprar = input('\nDIGITE O CÓDIGO DO PRODUTO QUE DESEJA REALIZAR A COMPRA: ')
+                    validar = True
 
-                for v in range(0, len(lista)):
-                    for cpf in lista[v]:
-                        if lista2[chaveParaLogin][1] == cpf[5]:
-                            print('VENDEDOR NÃO PODE COMPRAR O PRÓPRIO PRODUTO')
-                            validar = False
+                    for i in range(0, (len(lista))):
+                        for produtoBuscado in lista[i]:
+                            if codeProdutoComprar in produtoBuscado[1]:
+                                if produtoBuscado[5] == lista2[chaveParaLogin][1]:
+                                    print('\nO VENDEDOR NÃO PODE COMPRAR O PRÓRPIO PRODUTO!')
+                                    validar = False
 
-                if validar:
-                    for v in range(0, (len(lista))):
-                        for produtoBuscado in lista[v]:
-                            produtoComprado = []
-                            if codeProdutoComprar == produtoBuscado[1]:
-                                produtoComprado.append(produtoBuscado[0].capitalize())
-                                produtoComprado.append(produtoBuscado[1])
-                                produtoComprado.append(produtoBuscado[2])
-                                produtoComprado.append(produtoBuscado[3])
-                                produtoComprado.append(produtoBuscado[4])
-                                lista2[chaveParaLogin][6].append(produtoComprado)
-                                produtoBuscado[3] -= 1
-                                print('\nPRODUTO COMPRADO COM SUCESSO')
+                    if validar:
+                        for v in range(0, (len(lista))):
+                            for produtoBuscado in lista[v]:
+                                produtoComprado = []
+                                if codeProdutoComprar == produtoBuscado[1]:
+                                    produtoComprado.append(produtoBuscado[0].capitalize())
+                                    produtoComprado.append(produtoBuscado[1])
+                                    produtoComprado.append(produtoBuscado[2])
+                                    produtoComprado.append(produtoBuscado[4])
+                                    lista2[chaveParaLogin][6].append(produtoComprado)
+                                    print('\nPRODUTO COMPRADO COM SUCESSO')
 
                 break
 
@@ -118,16 +119,40 @@ def buscarProduto(lista: list, lista2: list, menuBuscarProduto, chaveParaLogin):
                         print(f'NOME DO PRODUTO: {produtoBuscado[0].capitalize()}')
                         print(f'\nCÓDIGO DO PRODUTO: {produtoBuscado[1]}')
                         print(f'\nVALOR DO PRODUTO: R$ {produtoBuscado[2]:.2f}')
-                        print(f'\nQUANTIDADE DO PRODUTO EM ESTOQUE: {produtoBuscado[3]}')
                         print(f'\nINFORMAÇÕES DO PRODUTO: {produtoBuscado[4]}')
                         print('-=-' * 20)
                         buscado = True
-            print(f'\nDESCRIÇÃO DO PRODUTO: {consultarchatgpt(nomeProdutoBuscado[0])}')
+            # print(f'\nDESCRIÇÃO DO PRODUTO: {consultarchatgpt(nomeProdutoBuscado[0])}')
 
             if not buscado:
                 print('\nPRODUTO NÃO ENCONTRADO.')
                 break
-            else:
+            if buscado:
+                pergConfirmar = input('DESEJA COMPRAR ALGUM PRODUTO? (Y OR N) ->  ').upper()
+                if pergConfirmar == 'Y':
+                    print('\n---ÁREA DE COMPRA---')
+                    codeProdutoComprar = input('\nDIGITE O CÓDIGO DO PRODUTO QUE DESEJA REALIZAR A COMPRA: ')
+                    validar = True
+
+                    for i in range(0, (len(lista))):
+                        for produtoBuscado in lista[i]:
+                            if codeProdutoComprar in produtoBuscado[1]:
+                                if produtoBuscado[5] == lista2[chaveParaLogin][1]:
+                                    print('\nO VENDEDOR NÃO PODE COMPRAR O PRÓRPIO PRODUTO!')
+                                    validar = False
+
+                    if validar:
+                        for v in range(0, (len(lista))):
+                            for produtoBuscado in lista[v]:
+                                produtoComprado = []
+                                if codeProdutoComprar == produtoBuscado[1]:
+                                    produtoComprado.append(produtoBuscado[0].capitalize())
+                                    produtoComprado.append(produtoBuscado[1])
+                                    produtoComprado.append(produtoBuscado[2])
+                                    produtoComprado.append(produtoBuscado[4])
+                                    lista2[chaveParaLogin][6].append(produtoComprado)
+                                    print('\nPRODUTO COMPRADO COM SUCESSO')
+
                 break
 
         elif optionBuscarProduto == '0':
@@ -147,10 +172,9 @@ def listaDeCompras(lista: dict, chaveParaLogin):
         nomeProdutoListado.append(compras[0])
         print(f'\nCÓDIGO DO PRODUTO: {compras[1]}')
         print(f'\nVALOR DO PRODUTO: R$ {compras[2]:.2f}')
-        print(f'\nQUANTIDADE DO PRODUTO EM ESTOQUE: {compras[3]}')
-        print(f'\nINFORMAÇÕES DO PRODUTO: {compras[4]}')
+        print(f'\nINFORMAÇÕES DO PRODUTO: {compras[3]}')
         print('-=-' * 20)
-        print(f'\nDESCRIÇÃO DO PRODUTO: {consultarchatgpt(nomeProdutoListado[0])}')
+        #print(f'\nDESCRIÇÃO DO PRODUTO: {consultarchatgpt(nomeProdutoListado[0])}')
 
 def removerConta(clientes: dict, chaveParaLogin):
     chaveParaRemover = input('DIGITE O CPF DA SUA CONTA PARA REMOVER: ').strip()

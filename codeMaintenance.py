@@ -6,10 +6,10 @@ from functionsCliente import optionsLoginCliente
 import verificarExistencia
 import validarDado
 
-vendedores = {'12345678901234': ['Shelldon Ryan', '12345678901234', '12345678912', '83981955736', 'shelldon', 'shelldon@gmail.com', 'Ryan2018@', ''],
-              '12345678901233': ['Tawan de Sousa', '12345678901233', '32112332112', '83981955735', 'eutawan', 'tawan@gmail.com', 'Tawan2020@', '']}
-clientes = {'12345678912': ['Shelldon Ryan', '12345678912', '83981955736', 'shelldon', 'shelldon@gmail.com', 'Ryan2018@', [['BICICLETA', '2223', 235.0, 5, 'Aro 29, mountain bike, 30 marchas', '12345678912']]]}
-produtosNoSistema = [[['BICICLETA', '2223', 235.0, 5, 'Aro 29, mountain bike, 30 marchas', '12345678912']], [['BICICLETA', '2224', 240.0, 6, 'Aro 26, bike de passeio, 24 marchas', '32112332112']]]
+vendedores = {'12345678901234': ['Shelldon Ryan', '12345678901234', '12345678912', '83981955736', 'shelldon', 'shelldon@gmail.com', 'Ryan2018@', []],
+              '12345678901233': ['Tawan de Sousa', '12345678901233', '32112332112', '83981955735', 'eutawan', 'tawan@gmail.com', 'Tawan2020@', []]}
+clientes = {'12345678912': ['Shelldon Ryan', '12345678912', '83981955736', 'shelldon', 'shelldon@gmail.com', 'Ryan2018@', []]}
+produtosNoSistema = [['12345678912', ['BICICLETA', '2223', 235.0, 5, 'Aro 29, mountain bike, 30 marchas', '12345678912']], ['32112332112', ['BICICLETA', '2224', 240.0, 6, 'Aro 26, bike de passeio, 24 marchas', '32112332112']]]
 
 optionInicial = -1
 while optionInicial != 0:
@@ -47,7 +47,7 @@ while optionInicial != 0:
 
                 cnpjExiste = verificarExistencia.cnpjExiste(cnpjVendedor, vendedores)
 
-                if not cnpjExiste:
+                if cnpjExiste:
                     print('\nESSE CNPJ JÁ FOI USADO ANTERIORMENTE.')
                     continue
 
@@ -105,7 +105,9 @@ while optionInicial != 0:
                 senhaDeUsuarioVendedor = validarDado.validarSenha(senhaDeUsuarioVendedor)
 
                 vendedores[cnpjVendedor] = [nomeDoVendedor, cnpjVendedor, cpfVendedor, telefoneVendedor,
-                                            nomeUsuarioVendedor, emailDoVendedor, senhaDeUsuarioVendedor, '']
+                                            nomeUsuarioVendedor, emailDoVendedor, senhaDeUsuarioVendedor, []]
+                produtosNoSistema.append([cpfVendedor])
+                print(produtosNoSistema)
                 print('\nVENDEDOR CADASTRADO COM SUCESSO!')
 
             elif optionVendedor == '2':
@@ -113,13 +115,13 @@ while optionInicial != 0:
                 login = False
                 chaveParaLogin = input('DIGITE SEU CNPJ: ').strip()
 
-                chaveParaLogin = validarDado.validarCpf(chaveParaLogin)
-
                 cnpjExiste = verificarExistencia.cnpjExiste(chaveParaLogin, vendedores)
 
-                if cnpjExiste:
+                if not cnpjExiste:
                     print('\nESSE CNPJ NÃO EXISTE.')
                     continue
+
+                chaveParaLogin = validarDado.validarCnpj(chaveParaLogin)
 
                 while not login:
                     if len(vendedores) == 0:
@@ -144,7 +146,9 @@ while optionInicial != 0:
                         continue
 
                     if optionLoginVendedor == '0':
-                        print('CONTA ENCERRADA.')
+                        print('\nCONTA ENCERRADA.')
+                        print('\nRETROCEDENDO PÁGINA...')
+                        sleep(2)
                         login = False
                         break
 
@@ -154,6 +158,7 @@ while optionInicial != 0:
                     elif optionLoginVendedor == '2':
                         optionsLoginVendedor.cadastrarProdutos(vendedores, chaveParaLogin, produtosNoSistema)
                         print(produtosNoSistema)
+                        print(vendedores[chaveParaLogin][7])
 
                     elif optionLoginVendedor == '3':
                         optionsLoginVendedor.buscarProduto(vendedores, chaveParaLogin)
@@ -162,7 +167,7 @@ while optionInicial != 0:
                         atualizar = False
                         while not atualizar:
                             atualizar = optionsLoginVendedor.atualizarProduto(vendedores, chaveParaLogin,
-                                                                  menuVendedor.menuAtualizarProduto())
+                                                                              menuVendedor.menuAtualizarProduto())
 
                     elif optionLoginVendedor == '5':
                         optionsLoginVendedor.removerProduto(vendedores, chaveParaLogin)
@@ -291,6 +296,8 @@ while optionInicial != 0:
 
                     if optionLoginCliente == '0':
                         print('CONTA ENCERRADA.')
+                        print('\nRETROCEDENDO PÁGINA...')
+                        sleep(2)
                         login = False
                         break
 
@@ -311,6 +318,7 @@ while optionInicial != 0:
 
                     elif optionLoginCliente == '6':
                         login = optionsLoginCliente.removerConta(clientes, chaveParaLogin)
+                        print(clientes[chaveParaLogin][6])
 
     elif optionInicial == '0':
         print('\nPROGRAMA ENCERRADO')

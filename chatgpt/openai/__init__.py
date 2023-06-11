@@ -22,3 +22,4 @@ def consultarchatgpt(produto):
     # Print the response
     return completion.choices[0].text
 
+print(consultarchatgpt('pistola'))

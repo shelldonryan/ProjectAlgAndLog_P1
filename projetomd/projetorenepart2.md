@@ -23,6 +23,8 @@
 
 ## Comprar produto 
     deve ser dada a opção de comprar o produto após a busca
+    será comprado através do código e deverá por a quantidade
+    
 
 ## Lista de compras
     tem que listar as compras feitas pelo cliente pelo nome do produto, quantidade e preço

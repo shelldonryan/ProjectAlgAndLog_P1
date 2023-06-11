@@ -11,7 +11,7 @@ def cnpjExiste(cnpj, vendedores: dict):
     for chaveCnpj in vendedores:
         if cnpj == vendedores[chaveCnpj][1]:
             cnpjExiste = True
-        break
+
     return cnpjExiste
 
 def cpfExisteVendedor(cpf, vendedores: dict):
@@ -19,7 +19,7 @@ def cpfExisteVendedor(cpf, vendedores: dict):
     for chaveCpf in vendedores:
         if cpf == vendedores[chaveCpf][2]:
             cpfExiste = True
-        break
+
     return cpfExiste
 
 def cpfExisteCliente(cpf, vendedores: dict):
@@ -27,7 +27,7 @@ def cpfExisteCliente(cpf, vendedores: dict):
     for chaveCpf in vendedores:
         if cpf == vendedores[chaveCpf][1]:
             cpfExiste = True
-        break
+
     return cpfExiste
 
 

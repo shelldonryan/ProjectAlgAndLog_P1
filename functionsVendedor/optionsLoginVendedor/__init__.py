@@ -48,7 +48,6 @@ def atualizarSenha(vendedores: dict, loginDoUsuario):
                 continue
 
 def cadastrarProdutos(vendedores: dict, loginDoUsuario, lista: list):
-    produtos = []
     while True:
         quantProdutos = input('\nDIGITE QUANTOS PRODUTOS DESEJA CADASTRAR: ')
 
@@ -64,7 +63,7 @@ def cadastrarProdutos(vendedores: dict, loginDoUsuario, lista: list):
         codProd = input('DIGITE O CÓDIGO DO PRODUTO: ')
         precoProd = input('DIGITE O VALOR DO PRODUTO: ')
         quantProd = input('DIGITE A QUANTIDADE EM ESTOQUE DO PRODUTO: ')
-        descProd = input('DESCRIÇÃO DO PRODUTO: ').capitalize()
+        InfoProd = input('INFORMAÇÕES DO PRODUTO: ').capitalize()
 
 
         while True:
@@ -81,14 +80,17 @@ def cadastrarProdutos(vendedores: dict, loginDoUsuario, lista: list):
         produto.append(codProd)
         produto.append(float(precoProd))
         produto.append(int(quantProd))
-        produto.append(descProd)
+        produto.append(InfoProd)
         produto.append(vendedores[loginDoUsuario][2])
-        produtos.append(produto)
+        vendedores[loginDoUsuario][7].append(produto)
 
-        print('\nPRODUTO(s) CADASTRADO(s).')
+
+        print('\nPRODUTO CADASTRADO.')
         continue
-    vendedores[loginDoUsuario][7] = produtos
-    lista.append(produtos)
+
+    for v in range(len(lista)):
+        if lista[v][0] == vendedores[loginDoUsuario][2]:
+            lista[v].append(produto)
 
 def buscarProduto(vendedores, loginDoUsuario):
     buscarProduto = input('DIGITE O NOME DO PRODUTO QUE DESEJA BUSCAR: ').upper()
@@ -100,12 +102,11 @@ def buscarProduto(vendedores, loginDoUsuario):
             print(f'\nCÓDIGO DO PRODUTO: {produtoBuscado[1]}')
             print(f'\nVALOR DO PRODUTO: R$ {produtoBuscado[2]:.2f}')
             print(f'\nQUANTIDADE DO PRODUTO EM ESTOQUE: {produtoBuscado[3]}')
-            print(f'\nDESCRIÇÃO DO PRODUTO: {produtoBuscado[4]}')
+            print(f'\nINFORMAÇÕES DO PRODUTO: {produtoBuscado[4]}')
             busca = True
 
     if not busca:
         print('PRODUTO NÃO ENCONTRADO.')
-
 
 def atualizarProduto(vendedores, loginDoUsuario, functionMenu):
     while True:
@@ -184,13 +185,13 @@ def atualizarProduto(vendedores, loginDoUsuario, functionMenu):
             break
 
         elif optionAtualizarProduto == '5':
-            atualizarProdutoDesc = input('\nDIGITE O NOME DO PRODUTO QUE DESEJA ATUALIZAR: ').upper()
+            atualizarProdutoInfo = input('\nDIGITE O NOME DO PRODUTO QUE DESEJA ATUALIZAR: ').upper()
             for produtoBuscado in vendedores[loginDoUsuario][7]:
-                if produtoBuscado[0].find(atualizarProdutoDesc) >= 0:
+                if produtoBuscado[0].find(atualizarProdutoInfo) >= 0:
                     print(f'\nPRODUTO ACHADO: {produtoBuscado[1]}\n')
-                    novoDescProduto = input('DIGITE A NOVA DESCRIÇÃO DO PRODUTO: ').upper()
-                    produtoBuscado[4] = novoDescProduto
-                    print('DESCRIÇÃO ATUALIZADA COM SUCESSO!')
+                    novoInfoProduto = input('DIGITE AS NOVAS INFORMAÇÕES DO PRODUTO: ').upper()
+                    produtoBuscado[4] = novoInfoProduto
+                    print('INFORMAÇÕES ATUALIZADAS COM SUCESSO!')
                     break
                 else:
                     print('PRODUTO NÃO ENCONTRADO.')
