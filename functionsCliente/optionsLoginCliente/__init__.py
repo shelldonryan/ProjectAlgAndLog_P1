@@ -1,5 +1,5 @@
 from time import sleep
-#from chatgpt.openai import consultarchatgpt
+from chatgpt.openai import consultarchatgpt
 def senhaAreaLoginCliente(dicionario: dict, senha, chaveparalogin):
     while True:
         if senha != dicionario[chaveparalogin][5]:
@@ -72,7 +72,7 @@ def buscarProduto(lista: list, lista2: list, menuBuscarProduto, chaveParaLogin):
                         print(f'\nINFORMARÇÕES DO PRODUTO: {produtoBuscado[4]}')
                         print('-=-' * 20)
                         buscado = True
-            #print(f'\nDESCRIÇÃO DO PRODUTO: {consultarchatgpt(buscarProduto)}')
+            print(f'\nDESCRIÇÃO DO PRODUTO: {consultarchatgpt(buscarProduto)}')
 
             if not buscado:
                 print('\nPRODUTO NÃO ENCONTRADO.')
@@ -138,7 +138,7 @@ def buscarProduto(lista: list, lista2: list, menuBuscarProduto, chaveParaLogin):
                         print(f'\nINFORMAÇÕES DO PRODUTO: {produtoBuscado[4]}')
                         print('-=-' * 20)
                         buscado = True
-            # print(f'\nDESCRIÇÃO DO PRODUTO: {consultarchatgpt(nomeProdutoBuscado[0])}')
+            print(f'\nDESCRIÇÃO DO PRODUTO: {consultarchatgpt(nomeProdutoBuscado[0])}')
 
             if not buscado:
                 print('\nPRODUTO NÃO ENCONTRADO.')
@@ -210,7 +210,7 @@ def listaDeCompras(lista: dict, chaveParaLogin):
         print(f'\nQUANTIDADE COMPRADA: {compras[3]} {str(compras[0]).capitalize()}')
         print(f'\nINFORMAÇÕES DO PRODUTO: {compras[4]}')
         print('-=-' * 20)
-        #print(f'\nDESCRIÇÃO DO PRODUTO: {consultarchatgpt(nomeProdutoListado[0])}')
+        print(f'\nDESCRIÇÃO DO PRODUTO: {consultarchatgpt(nomeProdutoListado[0])}')
 
 def removerConta(clientes: dict, chaveParaLogin):
     chaveParaRemover = input('DIGITE O CPF DA SUA CONTA PARA REMOVER: ').strip()

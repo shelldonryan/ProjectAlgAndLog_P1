@@ -108,7 +108,7 @@ def buscarProduto(vendedores, loginDoUsuario):
     if not busca:
         print('PRODUTO NÃO ENCONTRADO.')
 
-def atualizarProduto(vendedores, loginDoUsuario, functionMenu):
+def atualizarProduto(vendedores, loginDoUsuario, functionMenu, lista):
     while True:
         optionAtualizarProduto = functionMenu
 
@@ -123,6 +123,11 @@ def atualizarProduto(vendedores, loginDoUsuario, functionMenu):
                     print(f'\nPRODUTO ACHADO: {produtoBuscado[1]}\n')
                     novoNomeProduto = input('DIGITE O NOVO NOME DO PRODUTO: ').upper()
                     produtoBuscado[0] = novoNomeProduto
+                    for produtoNoSistema in lista:
+                        if produtoNoSistema[0] == vendedores[loginDoUsuario][2]:
+                            for i in range(1, len(produtoNoSistema)):
+                                produtoNoSistema[i][0] = novoNomeProduto
+
                     print('NOME ATUALIZADO COM SUCESSO!')
                     break
                 else:
@@ -137,6 +142,10 @@ def atualizarProduto(vendedores, loginDoUsuario, functionMenu):
                     print(f'\nPRODUTO ACHADO: {produtoBuscado[1]}\n')
                     novoCodProduto = input('DIGITE O NOVO CÓDIGO DO PRODUTO: ').upper()
                     produtoBuscado[1] = novoCodProduto
+                    for produtoNoSistema in lista:
+                        if produtoNoSistema[0] == vendedores[loginDoUsuario][2]:
+                            for i in range(1, len(produtoNoSistema)):
+                                produtoNoSistema[i][1] = novoCodProduto
                     print('CÓDIGO ATUALIZADO COM SUCESSO!')
                     break
                 else:
@@ -157,6 +166,10 @@ def atualizarProduto(vendedores, loginDoUsuario, functionMenu):
                         else:
                             break
                     produtoBuscado[2] = float(novoValorProduto)
+                    for produtoNoSistema in lista:
+                        if produtoNoSistema[0] == vendedores[loginDoUsuario][2]:
+                            for i in range(1, len(produtoNoSistema)):
+                                produtoNoSistema[i][2] = float(novoValorProduto)
                     print('VALOR ATUALIZADO COM SUCESSO.')
                     break
                 else:
@@ -177,6 +190,10 @@ def atualizarProduto(vendedores, loginDoUsuario, functionMenu):
                         else:
                             break
                     produtoBuscado[3] = float(novoQuantProduto)
+                    for produtoNoSistema in lista:
+                        if produtoNoSistema[0] == vendedores[loginDoUsuario][2]:
+                            for i in range(1, len(produtoNoSistema)):
+                                produtoNoSistema[i][3] = float(novoQuantProduto)
                     print('ESTOQUE ATUALIZADO COM SUCESSO.')
                     break
                 else:
@@ -191,6 +208,10 @@ def atualizarProduto(vendedores, loginDoUsuario, functionMenu):
                     print(f'\nPRODUTO ACHADO: {produtoBuscado[1]}\n')
                     novoInfoProduto = input('DIGITE AS NOVAS INFORMAÇÕES DO PRODUTO: ').upper()
                     produtoBuscado[4] = novoInfoProduto
+                    for produtoNoSistema in lista:
+                        if produtoNoSistema[0] == vendedores[loginDoUsuario][2]:
+                            for i in range(1, len(produtoNoSistema)):
+                                produtoNoSistema[i][4] = novoInfoProduto
                     print('INFORMAÇÕES ATUALIZADAS COM SUCESSO!')
                     break
                 else:

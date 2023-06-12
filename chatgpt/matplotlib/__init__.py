@@ -1,16 +1,18 @@
 import matplotlib.pyplot as plt
-# create the dataset
 
-data = {'Mesa': 20, 'cadeira': 15, 'Corda': 30, 'Cortina': 35}
-courses = list(data.keys())
-values = list(data.values())
+#Dados fictícios dos produtos e suas quantidades vendidas
+produtos = ['CARRO', 'MOTO', 'BICICLETA', 'CARROÇA']
+quantidades = [2, 1, 10, 6]
 
-fig = plt.figure(figsize=(10, 5))
+#Criar o gráfico de barras
+plt.bar(produtos, quantidades)
 
-# creating the bar plot
-plt.bar(courses, values, color='marrom', width=0.4)
+#Configurar os rótulos dos eixos
+plt.xlabel('PRODUTOS A VENDA')
+plt.ylabel('QUANTIDADE EM ESTOQUE')
 
-plt.xlabel("Produtos")
-plt.ylabel("Quantidade")
-plt.title("Sertão Livre")
+#Configurar o título do gráfico
+plt.title('PRODUTOS DO VENDEDOR')
+
+#Exibir o gráfico
 plt.show()

@@ -5,6 +5,7 @@ from functionsVendedor import optionsLoginVendedor
 from functionsCliente import optionsLoginCliente
 import verificarExistencia
 import validarDado
+import matplotlib.pyplot as plt
 
 vendedores = {'12345678901234': ['Shelldon Ryan', '12345678901234', '12345678912', '83981955736', 'shelldon', 'shelldon@gmail.com', 'Ryan2018@', []],
               '12345678901233': ['Tawan de Sousa', '12345678901233', '32112332112', '83981955735', 'eutawan', 'tawan@gmail.com', 'Tawan2020@', []]}
@@ -156,6 +157,41 @@ while optionInicial != 0:
 
                     elif optionLoginVendedor == '2':
                         optionsLoginVendedor.cadastrarProdutos(vendedores, chaveParaLogin, produtosNoSistema)
+                        pergDeTawan = input('\n DESEJA VISUALIZAR O GRÁFICO? (Y/N) ').upper()
+
+                        if pergDeTawan == 'Y':
+                            produtos = []
+                            quant = []
+
+                            for produtoNoSistema in produtosNoSistema:
+                                if produtoNoSistema[0] == vendedores[chaveParaLogin][2]:
+                                    for i in range(1, len(produtoNoSistema)):
+                                        produtos.append(produtoNoSistema[i][0])
+                                        quant.append(produtoNoSistema[i][3])
+
+                                        # Criar o gráfico de barras
+
+                            plt.bar(produtos, quant)
+
+                            # Configurar os rótulos dos eixos
+
+                            plt.xlabel('PRODUTOS A VENDA')
+
+                            plt.ylabel('QUANTIDADE EM ESTOQUE')
+
+                            # Rotacionar os rótulos dos produtos no eixo x
+
+                            plt.xticks(rotation=90)
+
+                            # Configurar o título do gráfico
+
+                            plt.title('PRODUTOS DO VENDEDOR')
+
+                            # Exibir o gráfico
+
+                            plt.show()
+                        else:
+                            continue
 
                     elif optionLoginVendedor == '3':
                         optionsLoginVendedor.buscarProduto(vendedores, chaveParaLogin)
@@ -164,7 +200,8 @@ while optionInicial != 0:
                         atualizar = False
                         while not atualizar:
                             atualizar = optionsLoginVendedor.atualizarProduto(vendedores, chaveParaLogin,
-                                                                              menuVendedor.menuAtualizarProduto())
+                                                                              menuVendedor.menuAtualizarProduto(),
+                                                                              produtosNoSistema)
 
                     elif optionLoginVendedor == '5':
                         optionsLoginVendedor.removerProduto(vendedores, chaveParaLogin)
