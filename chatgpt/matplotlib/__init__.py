@@ -1,4 +1,4 @@
-import matplotlib.pyplot as plt
+import chatgpt.matplotlib.colorbar as plt
 
 #Dados fictícios dos produtos e suas quantidades vendidas
 produtos = ['CARRO', 'MOTO', 'BICICLETA', 'CARROÇA']

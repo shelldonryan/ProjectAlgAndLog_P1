@@ -120,7 +120,7 @@ def atualizarProduto(vendedores, loginDoUsuario, functionMenu, lista):
             atualizarProdutoNome = input('\nDIGITE O NOME DO PRODUTO QUE DESEJA ATUALIZAR: ').upper()
             for produtoBuscado in vendedores[loginDoUsuario][7]:
                 if produtoBuscado[0].find(atualizarProdutoNome) >= 0:
-                    print(f'\nPRODUTO ACHADO: {produtoBuscado[1]}\n')
+                    print(f'\nPRODUTO ACHADO: {produtoBuscado[0]}\n')
                     novoNomeProduto = input('DIGITE O NOVO NOME DO PRODUTO: ').upper()
                     produtoBuscado[0] = novoNomeProduto
                     for produtoNoSistema in lista:
@@ -157,7 +157,7 @@ def atualizarProduto(vendedores, loginDoUsuario, functionMenu, lista):
             atualizarProdutoValor = input('\nDIGITE O NOME DO PRODUTO QUE DESEJA ATUALIZAR O VALOR: ').upper()
             for produtoBuscado in vendedores[loginDoUsuario][7]:
                 if produtoBuscado[0].find(atualizarProdutoValor) >= 0:
-                    print(f'\nVALOR ACHADO: R$ {produtoBuscado[1]:.2f}\n')
+                    print(f'\nVALOR ACHADO: R$ {produtoBuscado[2]:.2f}\n')
                     novoValorProduto = input('DIGITE O NOVO PREÇO DO PRODUTO: ')
                     while True:
                         if not novoValorProduto.isnumeric():
@@ -181,7 +181,7 @@ def atualizarProduto(vendedores, loginDoUsuario, functionMenu, lista):
             atualizarProdutoQuant = input('\nDIGITE O NOME DO PRODUTO QUE DESEJA ATUALIZAR O VALOR: ').upper()
             for produtoBuscado in vendedores[loginDoUsuario][7]:
                 if produtoBuscado[0].find(atualizarProdutoQuant) >= 0:
-                    print(f'\nVALOR ACHADO: R$ {produtoBuscado[1]:.2f}\n')
+                    print(f'\nPRODUTO ACHADO: {produtoBuscado[3]}\n')
                     novoQuantProduto = input('DIGITE A QUANTIDADE EM ESTOQUE DO PRODUTO: ')
                     while True:
                         if not novoQuantProduto.isnumeric():
@@ -193,7 +193,7 @@ def atualizarProduto(vendedores, loginDoUsuario, functionMenu, lista):
                     for produtoNoSistema in lista:
                         if produtoNoSistema[0] == vendedores[loginDoUsuario][2]:
                             for i in range(1, len(produtoNoSistema)):
-                                produtoNoSistema[i][3] = float(novoQuantProduto)
+                                produtoNoSistema[i][3] = int(novoQuantProduto)
                     print('ESTOQUE ATUALIZADO COM SUCESSO.')
                     break
                 else:
@@ -205,7 +205,7 @@ def atualizarProduto(vendedores, loginDoUsuario, functionMenu, lista):
             atualizarProdutoInfo = input('\nDIGITE O NOME DO PRODUTO QUE DESEJA ATUALIZAR: ').upper()
             for produtoBuscado in vendedores[loginDoUsuario][7]:
                 if produtoBuscado[0].find(atualizarProdutoInfo) >= 0:
-                    print(f'\nPRODUTO ACHADO: {produtoBuscado[1]}\n')
+                    print(f'\nPRODUTO ACHADO: {produtoBuscado[4]}\n')
                     novoInfoProduto = input('DIGITE AS NOVAS INFORMAÇÕES DO PRODUTO: ').upper()
                     produtoBuscado[4] = novoInfoProduto
                     for produtoNoSistema in lista:
@@ -222,7 +222,6 @@ def atualizarProduto(vendedores, loginDoUsuario, functionMenu, lista):
         elif optionAtualizarProduto == '0':
             atualizar = True
             return atualizar
-
 
 def removerProduto(vendedores, loginDoUsuario):
     remocaoProduto = input('DIGITE O NOME DO PRODUTO QUE DESEJA REMOVER: ').upper()
