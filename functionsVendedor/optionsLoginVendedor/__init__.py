@@ -97,7 +97,7 @@ def buscarProduto(vendedores, loginDoUsuario):
     busca = False
 
     for produtoBuscado in vendedores[loginDoUsuario][7]:
-        if produtoBuscado[0].find(buscarProduto) >= 0:
+        if produtoBuscado[0].find(buscarProduto) >= 0 and buscarProduto == produtoBuscado[0]:
             print(f'\nNOME DO PRODUTO: {produtoBuscado[0].capitalize()}')
             print(f'\nCÓDIGO DO PRODUTO: {produtoBuscado[1]}')
             print(f'\nVALOR DO PRODUTO: R$ {produtoBuscado[2]:.2f}')
@@ -223,21 +223,31 @@ def atualizarProduto(vendedores, loginDoUsuario, functionMenu, lista):
             atualizar = True
             return atualizar
 
-def removerProduto(vendedores, loginDoUsuario):
+def removerProduto(vendedores, loginDoUsuario, produtosNoSistema):
     remocaoProduto = input('DIGITE O NOME DO PRODUTO QUE DESEJA REMOVER: ').upper()
     removidos = []
 
-    for produtoBuscado in vendedores[loginDoUsuario][7]:
-        if produtoBuscado[0].find(remocaoProduto) >= 0:
-            removidos.append(produtoBuscado)
+    if len(vendedores[loginDoUsuario][7]) == 0:
+        print('\nNÃO HÁ PRODUTOS CADASTRADOS COM ESSE VENDEDOR')
+    else:
+        notRemovidos = []
+        notRemovidosSistema = []
+        notRemovidosSistema.append(vendedores[loginDoUsuario][2])
+        for produtoBuscado in vendedores[loginDoUsuario][7]:
+            if produtoBuscado[0].find(remocaoProduto) >= 0 and remocaoProduto == produtoBuscado[0]:
+                removidos.append(produtoBuscado)
+                print('\nPRODUTO REMOVIDO COM SUCESSO.')
+            else:
+                notRemovidos.append(produtoBuscado)
+                notRemovidosSistema.append(produtoBuscado)
 
-    for produtosParaRemover in removidos:
-        removidos.remove(produtosParaRemover)
-        print('PRODUTO REMOVIDO COM SUCESSO.')
-
-    if len(removidos) == 0:
-        print('\nPRODUTO NÃO ENCONTRADO!')
-
+        if len(notRemovidos) == len(vendedores[loginDoUsuario][7]):
+            print('\nPRODUTO NÃO ENCONTRADO')
+        else:
+            vendedores[loginDoUsuario][7] = notRemovidos
+            for i in range(0, len(produtosNoSistema)):
+                if vendedores[loginDoUsuario][2] == produtosNoSistema[i][0]:
+                    produtosNoSistema[i] = notRemovidosSistema
 
 def removerConta(vendedores, chaveParaLogin):
     chaveParaRemover = input('DIGITE O CNPJ DA SUA CONTA PARA REMOVER: ').strip()

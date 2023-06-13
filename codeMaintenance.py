@@ -5,6 +5,7 @@ from functionsVendedor import optionsLoginVendedor
 from functionsCliente import optionsLoginCliente
 import verificarExistencia
 import validarDado
+from chatgpt.matplotlib import graphic
 
 vendedores = {'12345678901234': ['Shelldon Ryan', '12345678901234', '12345678912', '83981955736', 'shelldon', 'shelldon@gmail.com', 'Ryan2018@', []],
               '12345678901233': ['Tawan de Sousa', '12345678901233', '32112332112', '83981955735', 'eutawan', 'tawan@gmail.com', 'Tawan2020@', [['BICICLETA', '2224', 240.0, 6, 'Aro 26, bike de passeio, 24 marchas', '32112332112']]]}
@@ -156,6 +157,26 @@ while optionInicial != 0:
 
                     elif optionLoginVendedor == '2':
                         optionsLoginVendedor.cadastrarProdutos(vendedores, chaveParaLogin, produtosNoSistema)
+                        pergTawan = input('\nDESEJA VER O GRÁFICO DE BARRA? ( Y \ N ) ').upper()
+
+                        if pergTawan == 'Y':
+                            produtosParaGrafico = []
+                            for produtoParaGrafico in vendedores[chaveParaLogin][7]:
+                                produtosParaGrafico.append(produtoParaGrafico[0])
+                            quantidadesParaGrafico = []
+                            for produtoParaGrafico in vendedores[chaveParaLogin][7]:
+                                quantidadesParaGrafico.append(produtoParaGrafico[3])
+
+                            graphic(produtosParaGrafico, quantidadesParaGrafico)
+                        else:
+                            continue
+
+                        pergTawan2 = input('\nDESEJA VER O RELATÓRIO? ( Y \ N ) ').upper()
+
+                        if pergTawan == 'Y':
+
+                        else:
+                            continue
 
                     elif optionLoginVendedor == '3':
                         optionsLoginVendedor.buscarProduto(vendedores, chaveParaLogin)
@@ -168,7 +189,7 @@ while optionInicial != 0:
                                                                               produtosNoSistema)
 
                     elif optionLoginVendedor == '5':
-                        optionsLoginVendedor.removerProduto(vendedores, chaveParaLogin)
+                        optionsLoginVendedor.removerProduto(vendedores, chaveParaLogin, produtosNoSistema)
 
                     elif optionLoginVendedor == '6':
                         login = optionsLoginVendedor.removerConta(vendedores, chaveParaLogin)

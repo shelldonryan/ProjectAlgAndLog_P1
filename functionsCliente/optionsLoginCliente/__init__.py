@@ -72,7 +72,7 @@ def buscarProduto(lista: list, lista2: list, menuBuscarProduto, chaveParaLogin):
                         print(f'\nINFORMARÇÕES DO PRODUTO: {produtoBuscado[4]}')
                         print('-=-' * 20)
                         buscado = True
-            print(f'\nDESCRIÇÃO DO PRODUTO: {consultarchatgpt(buscarProduto)}')
+                        print(f'\nDESCRIÇÃO DO PRODUTO: {consultarchatgpt(produtoBuscado[0].capitalize())}')
 
             if not buscado:
                 print('\nPRODUTO NÃO ENCONTRADO.')
@@ -125,20 +125,18 @@ def buscarProduto(lista: list, lista2: list, menuBuscarProduto, chaveParaLogin):
         elif optionBuscarProduto == '2':
             buscarProduto = input('\nDIGITE A DESCRIÇÃO DO PRODUTO QUE DESEJA BUSCAR: ').capitalize()
             buscado = False
-            nomeProdutoBuscado = []
 
             for v in range(0, len(lista)):
                 for produtoBuscado in lista[v]:
                     if produtoBuscado[4].find(buscarProduto) >= 0:
                         print('-=-' * 20)
-                        nomeProdutoBuscado.append(produtoBuscado[0])
                         print(f'NOME DO PRODUTO: {produtoBuscado[0].capitalize()}')
                         print(f'\nCÓDIGO DO PRODUTO: {produtoBuscado[1]}')
                         print(f'\nVALOR DO PRODUTO: R$ {produtoBuscado[2]:.2f}')
                         print(f'\nINFORMAÇÕES DO PRODUTO: {produtoBuscado[4]}')
                         print('-=-' * 20)
                         buscado = True
-            print(f'\nDESCRIÇÃO DO PRODUTO: {consultarchatgpt(nomeProdutoBuscado[0])}')
+                        print(f'\nDESCRIÇÃO DO PRODUTO: {consultarchatgpt(produtoBuscado[0].capitalize())}')
 
             if not buscado:
                 print('\nPRODUTO NÃO ENCONTRADO.')
