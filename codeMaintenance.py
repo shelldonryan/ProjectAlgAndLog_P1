@@ -171,13 +171,6 @@ while optionInicial != 0:
                         else:
                             continue
 
-                        pergTawan2 = input('\nDESEJA VER O RELATÓRIO? ( Y \ N ) ').upper()
-
-                        if pergTawan == 'Y':
-
-                        else:
-                            continue
-
                     elif optionLoginVendedor == '3':
                         optionsLoginVendedor.buscarProduto(vendedores, chaveParaLogin)
 
