@@ -6,11 +6,11 @@ from functionsCliente import optionsLoginCliente
 import verificarExistencia
 import validarDado
 from chatgpt.matplotlib import graphic
+from vizualizarRelatorio import criarRelatorio
 
-vendedores = {'12345678901234': ['Shelldon Ryan', '12345678901234', '12345678912', '83981955736', 'shelldon', 'shelldon@gmail.com', 'Ryan2018@', []],
-              '12345678901233': ['Tawan de Sousa', '12345678901233', '32112332112', '83981955735', 'eutawan', 'tawan@gmail.com', 'Tawan2020@', [['BICICLETA', '2224', 240.0, 6, 'Aro 26, bike de passeio, 24 marchas', '32112332112']]]}
-clientes = {'12345678912': ['Shelldon Ryan', '12345678912', '83981955736', 'shelldon', 'shelldon@gmail.com', 'Ryan2018@', []]}
-produtosNoSistema = [['12345678912', ['BICICLETA', '2223', 235.0, 5, 'Aro 29, mountain bike, 30 marchas', '12345678912']], ['32112332112', ['BICICLETA', '2224', 240.0, 6, 'Aro 26, bike de passeio, 24 marchas', '32112332112']]]
+vendedores = {}
+clientes = {}
+produtosNoSistema = []
 
 optionInicial = -1
 while optionInicial != 0:
@@ -168,6 +168,13 @@ while optionInicial != 0:
                                 quantidadesParaGrafico.append(produtoParaGrafico[3])
 
                             graphic(produtosParaGrafico, quantidadesParaGrafico)
+                        else:
+                            continue
+
+                        pergTawan2 = input('\nDESEJA VER O RELATÓRIO? ( Y \ N ) ').upper()
+
+                        if pergTawan == 'Y':
+                            criarRelatorio(vendedores[chaveParaLogin][7], vendedores, chaveParaLogin)
                         else:
                             continue
 
